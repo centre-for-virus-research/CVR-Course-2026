@@ -16,7 +16,7 @@ TinyURL: [https://tinyurl.com/VBIO-2026](https://tinyurl.com/VBIO-2026)
 
 [Quan Gu](https://www.gla.ac.uk/schools/infectionimmunity/staff/quangu/)  
 [Joseph Hughes](https://www.gla.ac.uk/schools/infectionimmunity/staff/josephhughes/)  
-[Karen McLuskey](https://www.gla.ac.uk/schools/molecularbiosciences/staff/karenmcluskey/)
+[Karen McLuskey](https://www.gla.ac.uk/schools/molecularbiosciences/staff/karenmcluskey/)  
 [David Robertson](https://www.gla.ac.uk/schools/infectionimmunity/staff/davidrobertson/)  
 [Sreenu Vattipally](https://www.gla.ac.uk/schools/infectionimmunity/staff/sreenuvattipally/)  
 
