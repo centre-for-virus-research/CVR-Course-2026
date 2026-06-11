@@ -1,6 +1,6 @@
 # Reference Alignment Practical
-## [8th Viral Bioinformatics and Genomics Training Course](https://github.com/centre-for-virus-research/CVR-VGB-2025)
-* Monday 16th - Friday 20th June 2025
+## [Introduction to Viral Bioinformatics Training Course](https://github.com/centre-for-virus-research/CVR-Course-2026)
+* Monday 15th - Friday 19th June 2025
 * Glasgow, UK
 * [MRC-University of Glasgow Centre for Virus Research](https://www.gla.ac.uk/research/az/cvr/)
 
