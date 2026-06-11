@@ -408,7 +408,7 @@ ls  ~/linux_tutorial/text_files
 > - The second *ls* is used to check that the new file has been copied and should now show `human_viruses.txt outbreak.csv` 
 
 
-##### Walkthrough: Challenge 3
+#### Walkthrough: Challenge 3
 
 From your home directory, copy `/home4/VBG_data/Linux_26/SARS-CoV-2.fa` into your `text_files` directory. Try it without using the Help box.
 
