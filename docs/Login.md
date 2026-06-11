@@ -4,8 +4,8 @@
   * If a Windows Security **popup** window appears asking "Do you want to allow public, private and domain networks to access this app?" **click Cancel**
 
 * The MobaXterm window should now appear
-* **Click the SSH icon** - should be the left-most icon row in the top row
-* In the **remote host** field enter: **see login sheet**
+* **Click the SSH icon** - should be the left-most icon in the top row
+* See the login sheet provided in the computer room for what to enter in the **remote host** field
 * **Check** the Specify username **checkbox**
 * **Enter** your server **username** into the **username** field
   * **Note that this is NOT the Windows machine username** - please see the login details handed out to you individually in the session
@@ -14,7 +14,7 @@
 * You will then be presented with a black terminal screen with a password prompt
 * **Enter your password**
   * **Note that this is NOT the Windows machine password** - please see the login details handed out to you individually in the session
-  * **IMPROTANT** - on Linux when you enter the password, you do not see any characters appearing on screen, you should fully enter the password and press the Enter/Return key
+  * **IMPROTANT** - on Linux when you enter the password, you do not see any characters appearing on screen, you should fully enter the password and finally press the Enter/Return key
   * Also, remeber that the password is **case sensitive** 
 * You should now be logged in to the server and ready to start the Linux tutorial
 
