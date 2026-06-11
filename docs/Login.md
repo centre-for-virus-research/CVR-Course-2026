@@ -11,7 +11,7 @@ The exception is if you are a University of Glasgow student or staff member - in
 
 * The MobaXterm window should now appear
 * **Click the SSH icon** - should be the left-most icon row in the top row
-* In the **remote host** field enter: **alpha2.cvr.gla.ac.uk**
+* In the **remote host** field enter: **see login sheet**
 * **Check** the Specify username **checkbox**
 * **Enter** your server **username** into the **username** field
   * **Note that this is NOT the Windows machine username** - please see the login details handed out to you individually in the session
