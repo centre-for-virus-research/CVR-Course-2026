@@ -1,9 +1,3 @@
-# Windows Machine Login
-
-You will need to login to a Windows machine using the **username** and **password** that University of Glasgow IT emailed directly to you - we do not have a copy of these details.
-
-The exception is if you are a University of Glasgow student or staff member - in which case use your University of Glasgow standard GUID login details to login to the Windows machine.
-
 # MobaXterm Linux Login
 
 * Launch MobaXterm by **clicking the Windows Start button**, and **typing MobaXterm** into the **Search field**, then **click the MobaXterm app icon**.
