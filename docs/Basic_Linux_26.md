@@ -6,25 +6,17 @@
 
 ## Introduction
 
-Linux is widely used in biological and biomedical research for accessing research servers, managing large datasets and running bioinformatics software.
-
-In this tutorial, you will connect to a Linux server and learn how to interact with it using the command line. 
+Linux is widely used in biological and biomedical research for accessing research servers, managing large datasets and running bioinformatics software. In this tutorial, you will connect to a Linux server (alpha2) and learn how to interact with it using the command line. 
 
 The aim of the tutorial is to develop confidence working at the command line and to provide a foundation for using Linux. 
 
 ### Connecting to the Linux Server
 
-In this course, we will use the MobaXterm application to connect to the Alpha2 Linux server. Please use the provided username and password to log in to your account.
-
-> Open MobaXterm → Sessions → New Session → SSH → Enter the remote host and username → OK → Enter password
-
-> 💡 **Note:** You won't see your password when you type it. You can copy and paste it into the terminal but make sure you don't grab any white spaces.
-
-
+In this course, we will use the MobaXterm application to connect to the Alpha2 Linux server using the username and password provided.
 
 ### The Terminal
 
-The terminal is a window where you can type commands and interact with a Linux computer. The command line provides a fast and flexible way to navigate files, manage data and run bioinformatics software. 
+Once connected, MobaXterm opens a terminal window. The terminal is a text-based interface that allows you to interact with the Linux server by typing commands. These commands provide a fast and flexible way to navigate files, manage data and run bioinformatics software. 
 
 #### The Terminal Prompt
 
@@ -41,7 +33,7 @@ your_username@alpha2:~$
 | `~`             | Your home directory                  |
 | `$`             | The prompt (where you type commands) |
 
-The `~` symbol is a shortcut for your home directory. When you first log in, you will usually start in your home directory.
+>**Note** The `~` symbol is a shortcut for your home directory. When you first log in, you will usually start in your home directory.
 
 ### Linux Command Structure
 
@@ -53,9 +45,9 @@ command [option(s)] [argument(s)]
 
 | Part     | Purpose                                   |
 |----------|-------------------------------------------|
-| Command  | Specifies the program to run              |
-| Option   | Modifies how the command behaves          |
-| Argument | Specifies what the command should work on |
+| command  | Specifies the program to run              |
+| option   | Modifies how the command behaves          |
+| argument | Specifies what the command should work on |
 
 For example:
 
@@ -63,15 +55,15 @@ For example:
 ls -l results.txt
 ```
 
-| Part     | Example       |
-|----------|---------------|
-| Command  | `ls`          |
-| Option   | `-l`          |
-| Argument | `results.txt` |
+| Part     | Example       | Meaning          |
+|----------|---------------|------------------|
+| Command  | `ls`          | *list*           |
+| Option   | `-l`          | long-version     |
+| Argument | `results.txt` | file of interest |
 
 A command may be used on its own, or with one or more options and/or arguments.
 
-> **Tip:** Typing `man <command_name>` displays the manual page for a command. The manual contains information about the command, its options and how to use it. Press `q` to exit.
+> **Tip:** Typing `man <command_name>` displays the manual page for a command. The manual contains information about the command, its options and how to use it. Press `q` to exit when done.
 
 ### Linux Keyboard Shortcuts 
 
@@ -110,18 +102,17 @@ By the end of this tutorial you will be able to:
 2. View files and directories using `ls`
 3. Create directories using `mkdir`
 4. Move around the directory structure using `cd`
-5. Understand absolute and relative paths
-6. Copy files using `cp`
-7. Navigate a Linux system with confidence 🤞
+5. Copy files using `cp`
+6. Navigate a Linux system with confidence 🤞
 
 
-## Finding your way around
+## Getting around in Linux
 
 ### Where am I?
 
-Directories are the Linux equivalent of folders on a Windows PC or Mac. Directories can contain files and other directories, allowing information to be organised in a hierarchical structure.
+Directories in Linux are the equivalent of folders on a Windows PC or Mac. Directories can contain files and/or other directories, allowing information to be organised in a hierarchical structure.
 
-The directory you are currently working in is known as your **current working directory**. To find your current working directory, use the `pwd` command (**print working directory**).
+The directory you are currently working in is known as your *current working directory*. To find your current working directory, use the `pwd` command (*print working directory*).
 
 From now on, whenever you see a command in a grey box, try entering it at the command line.
 
@@ -132,6 +123,8 @@ pwd
 You should see:
 
 `/home4/your_username`
+
+>**note**:  This is your home directory.
 
 ### What is in here?
 
@@ -145,13 +138,15 @@ ls
 
 <details>
   <summary>Expected output</summary>
-You shouldn't see any output as your home directory is currently empty 😅
+You shouldn't see any output as your home directory is currently empty. 
+
+Let's add some files and directories to your home directory.
 </details>
 
 
 ### Creating a Directory
 
-Use the `mkdir` command (**make directory**) to create a new directory called `linux_tutorial`.
+Use the `mkdir` command (*make directory*) to create a new directory called `linux_tutorial`.
 
 ```bash
 mkdir linux_tutorial
@@ -162,13 +157,13 @@ mkdir linux_tutorial
 ```bash
 ls
 ```
-You should see the directory:
+You should now see the directory:
 
 `linux_tutorial`
 
 ### Changing directories
 
-Use the `cd` command (**change directory**) to move between directories.
+Use the `cd` command (*change directory*) to move between directories.
 
 Move into the directory you just created:
 
@@ -182,15 +177,12 @@ Check your new location:
 pwd
 ```
 
-You should see:
+You should now see:
+`/home4/your_username/linux_tutorial`<br>
+You are now in a subdirectory of your home directory called `linux_tutorial`. <br>
 
-`/home4/your_username/linux_tutorial`
-
-You are now in a subdirectory of your home directory called `linux_tutorial`.
-
-While you are here, create a directory to store some text files. Let's call it `text_files`, then change into it so that your current working directory is:
-
-`/home4/your_username/linux_tutorial/text_files`
+While you are here, create another new directory called `text_files` and then move into it. <br>
+Once you have done this, your current working directory should be:`/home4/your_username/linux_tutorial/text_files`
 
 <details>
   <summary>Help</summary>
@@ -198,18 +190,33 @@ While you are here, create a directory to store some text files. Let's call it `
 ```bash
 mkdir text_files
 cd text_files
+pwd
 ```
 
 </details>
+<br>
 
-🤔 **Question:** What do you think this path means?
+
+Before continuing, it is probably good to know that:
+
+| Symbol | Meaning                             |
+|--------|-------------------------------------|
+| `~`    | Your home directory                 |
+| `.`    | The current directory               |
+| `..`   | The parent directory (one level up) |
+| `/`    | Separates directories in a path     |
+
+For example:`/home4/your_username/linux_tutorial/text_files`
+is the full path showing how to reach the `text_files` directory.
+
+🤔 **Question:** What do you know what this path represents?
 
 `/home4/your_username/linux_tutorial/text_files`
 
- Your directory is part of a larger directory structure:
-
 <details>
   <summary>Answer</summary>
+
+  Your directory is part of a larger directory structure:
 
 ```text
 /
@@ -219,39 +226,25 @@ cd text_files
             └── text_files
 ```
 
-💡 A path describes the location of a file or directory.
+- A path describes the location of a file or directory.
 
-Paths beginning with `/` are called **absolute paths** because they start from the top of the directory structure.
+- Paths beginning with `/` are called **absolute paths** because they start from the top of the directory structure.
 
-Each `/` separates one directory from the next.
+- Each `/` separates one directory from the next.
 
-Paths beginning with `~` start from your home directory.
+- Paths beginning with `~` start from your home directory.
 
-Examples:
+- Examples:
 
-`/home4/VBG_data/Linux_26`
+  - `/home4/your_username/linux_tutorial/text_files`
 
-`~/linux_tutorial/text_files`
+  - Is equivalent to: `~/linux_tutorial/text_files`
 
 </details>
-
-💡 **Note:** Before continuing, it is useful to know that:
-
-| Symbol | Meaning                             |
-|--------|-------------------------------------|
-| `~`    | Your home directory                 |
-| `.`    | The current directory               |
-| `..`   | The parent directory (one level up) |
-| `/`    | Separates directories in a path     |
-
-For example:
-
-`/home4/your_username/linux_tutorial/text_files`
-
-is a path showing how to reach the `text_files` directory.
+<br>
 
 
-You should still be in `text_files` which is are now two directories **below** your home directory. Let's go home.
+Okay, you should still be in the directory `text_files` which is two directories *below* your home directory. So, let's go home.
 
 
 ### Moving Around the Directory Structure
@@ -267,15 +260,15 @@ The `cd` command can be used with special shortcuts to move around the directory
 | `cd ../..`             | Go up two directories                             |
 | `cd ../directory_name` | Go up one directory and enter a sibling directory |
 
-##### Practise
+#### Practise
 
-It's very useful to practice moving around directory structures. Here are a few simple tasks to help you get familiar with changing directories.
+It's useful to practice moving around directory structures. Here are a few simple tasks to help you get familiar with changing directories.
 
 ```bash
 cd
 pwd
 ```
-You should see:
+This should take you home and you should see:
 `/home4/your_username`
 
 ```bash
@@ -294,6 +287,7 @@ cd ..
 <details>
   <summary>Output</summary>
 You have moved up one directory so you are now in the linux_tutorial directory.
+
 ```bash
 pwd 
 ```
@@ -301,8 +295,9 @@ pwd
 `/home4/your_username/linux_tutorial`
 
 </details>
+<br>
 
-🤔 **Question:** What is in the linux_tutorial directory?
+🤔 **Question:** What is in the `linux_tutorial` directory?
 
 <details>
   <summary>Answer</summary>
@@ -312,8 +307,8 @@ ls
 ```
 `text_files`
 </details>
-
-Okay - Let's go back to your home directory.
+<br>
+Okay - Now go back to your home directory.
 
 <details>
   <summary>How do I do that?</summary>
@@ -326,6 +321,7 @@ cd ../
 ```
 > 💡 **Note:**There is often more than one way to reach the same location in Linux.
 </details>
+<br>
 
 🤔 **Question:** Are you back in your home directory?
 
@@ -338,28 +334,26 @@ pwd
  `/home4/your_username/`
 
 
-
-
 ### Creating, Copying and Removing Files
 
 #### Copying
 
 The `cp` command (**copy**) is used to make a copy of a file.
 
-| Command                      | Meaning                                |
-|------------------------------|----------------------------------------|
-| `cp file.txt newfile.txt`    | Copy a file and rename the copy        |
-| `cp file.txt directory_name` | Copy a file into a directory           |
-| `cp path/file.txt .`         | Copy a file into the current directory |
-| `cp * directory_name`        | Copy multiple files                    |
+| Command                        | Meaning                                         |
+|--------------------------------|-------------------------------------------------|
+| `cp file.txt newfile.txt`      | Copy a file and rename the copy                 |
+| `cp file.txt directory_name/.` | Copy a file into a directory with the same name |
+| `cp path/file.txt .`           | Copy a file into the current directory          |
+| `cp * directory_name`          | Copy multiple files                             |
 
 
 > 💡 **Note:**:
-- `~` represents your home directory.
-- `.` represents the current directory.
-- Use `pwd` if you are unsure where you are.
+>- `~` represents your home directory.
+>- `.` represents the current directory.
+>- Use `pwd` if you are unsure where you are.
 
-##### Practise Excercises
+#### Practise Excercises
 
 Here you are going to copy three text files from `/home4/VBG_data/Linux_26` into your `text_files` directory from three different starting locations:
 
@@ -371,6 +365,8 @@ You should see:
 
 `Exercises  human_viruses.txt  outbreak.csv  SARS-CoV-2.fa  test_files`
 
+> 💡 **Note:**: `Excercises` and `test_files` are directories and may be coloured differently to represent this.
+
 Now let's copy each of the text files from a different starting location:
 
 1. Go into your `text_files` directory and copy `human_viruses.txt` from `Linux_26` into `text_files`
@@ -379,13 +375,8 @@ Now let's copy each of the text files from a different starting location:
 
 Starting from your home directory:
 
-##### Walkthrough: Challenge 1:
+#### Walkthrough: Challenge 1:
 
-First check what is in the directory you are going to copy from:
-
-```bash
-ls /home4/VBG_data/Linux_26
-```
 Change into your `text_files` directory, then copy `human_viruses.txt` from `Linux_26`.
 
 ```bash
@@ -397,26 +388,24 @@ ls
 > 
 > The dot (`.`) means "the current directory" (👇 to here).
 > 
-> Use `ls` to check that the file has been copied to the correct location.
+> Using `ls` should show the file `human_viruses.txt` in your current directory `text_files`
 > 
 
-##### Walkthrough: Challenge 2:
+#### Walkthrough: Challenge 2:
 
 Go into `/home4/VBG_data/Linux_26` and copy `outbreak.csv` into your `text_files` directory
 
 ```bash
 cd /home4/VBG_data/Linux_26
 ls 
-cp outbreak.csv ~/linux_tutorial/text_files/ 
+cp outbreak.csv ~/linux_tutorial/text_files/.
 ls  ~/linux_tutorial/text_files
 ```
 > 💡 **Note:**
 > 
-> ls (1): Look around and see what is here
-> 
-> ~ is used for your home dir
-> 
-> ls (II): Check the files have been copied
+> - The first *ls* is just used to look around and see what is here
+> - ~ is used to denote your home dir
+> - The second *ls* is used to check that the new file has been copied and should now show `human_viruses.txt outbreak.csv` 
 
 
 ##### Walkthrough: Challenge 3
