@@ -37,5 +37,5 @@ TinyURL: [https://tinyurl.com/VBIO-2026](https://tinyurl.com/VBIO-2026)
 11. Genomic Session
 12. Nanopore Analysis
 13. ViralRecon
-14. [Bash conditions & loops](docs/TextProcessingAndBashScripting/AdvancedLinux.md)
+14. [Bash conditions & loops](docs/TextProcessingAndBashScripting/BashLoops.md)
 15. Group session - build your own pipeline
