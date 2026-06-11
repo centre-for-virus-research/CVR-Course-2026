@@ -24,7 +24,8 @@ TinyURL: [https://tinyurl.com/VBIO-2026](https://tinyurl.com/VBIO-2026)
 [Timetable-ToBe-Udpated](/docs/ViralBioinformatics2025-CourseTimetable.pdf)
 
 ### Practical Modules
-1. [Login, setup & basic Linux](docs/Basic_Linux.md)
+0. [Logging in](docs/Login.md)
+1. [Basic Linux](docs/Basic_Linux_26.md)
 2. [Bash file editing & text processing](docs/TextProcessingAndBashScripting/TextProcessing.md)
 3. [Read cleaning & QC](docs/ReadCleaning.md)
 4. [Reference alignment](docs/RefAlign.md)
