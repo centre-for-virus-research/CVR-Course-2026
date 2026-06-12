@@ -34,7 +34,7 @@ TinyURL: [https://tinyurl.com/VBIO-2026](https://tinyurl.com/VBIO-2026)
 7. [Metagenomics and virus discovery](docs/Metagenomics.md)
 8. [K-mer based metagenomics](docs/KmerMetagenomics.md)
 9. [Introduction to MSA and phylogenetics](docs/Phylogenetics.md)
-10. Genomic Session
+10. Genomic - Talk & Tour - and example Nanopore loading
 11. Nanopore Analysis
 12. ViralRecon
 13. [Bash conditions & loops](docs/TextProcessingAndBashScripting/BashLoops.md)
