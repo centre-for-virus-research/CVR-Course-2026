@@ -90,13 +90,13 @@ cd
 Copy the Kmer data folder to your home directory:
 
 ```bash
-cp -r /home4/VBG_data/Kmer2026 .
+cp -r /home4/VBG_data/2026Kmer .
 ```
 
 Change into the Pangolin sample folder:
 
 ```bash
-cd ~/Kmer2026/Pangolin/
+cd ~/2026Kmer/Pangolin/
 ```
 
 List the contents to see the files:
@@ -250,19 +250,19 @@ The columns are:
 
 > **Tip on interpreting columns 4 and 5:** If column 4 (total minimizers) is high but column 5 (distinct minimizers) is very low, this suggests the reads are all hitting the same small region of the reference — which can indicate a false positive classification. A genuine viral infection should show reads distributed across the whole genome (many distinct minimizers).
 
-To focus on virus-level classifications, you can filter the report:
+To focus on species-level classifications, you can filter the report to look for all non-zero percent reads:
 
 ```bash
-grep -P "\tS\t" kraken_report_Pangolin.txt | grep -v "^  0" | sort -t$'\t' -k2 -rn | head -n 20
+grep -P "\tS\t" kraken_report_Pangolin.txt | grep -v "^  0.00" 
 ```
 
-This shows the top 20 species-level classifications ranked by read count.
+
 
 ---
 
 ***
 ### Question 2
-What are the top viral species classified in the pangolin sample? (Hint: filter for virus-related lines)
+Do you recognise any viruses in the pangolin sample? 
 ***
 
 ---
@@ -295,7 +295,7 @@ ls
 Open it with Firefox:
 
 ```bash
-firefox kraken_krona_Pangolin.html
+firefox kraken_krona_Pangolin.html &
 ```
 
 > **Tip:** You can also download the file via the MobaXterm file browser on the left-hand side and open it in any browser on your local machine.
@@ -341,7 +341,7 @@ If you have time, process the second sample — the biting midge — which does 
 Change into the midge data folder:
 
 ```bash
-cd ~/Kmer2026/MidgePool1
+cd ~/2026Kmer/MidgePool1
 ls
 ```
 
