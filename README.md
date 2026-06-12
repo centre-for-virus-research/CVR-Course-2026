@@ -21,7 +21,7 @@ TinyURL: [https://tinyurl.com/VBIO-2026](https://tinyurl.com/VBIO-2026)
 [Sreenu Vattipally](https://www.gla.ac.uk/schools/infectionimmunity/staff/sreenuvattipally/)  
 
 ### Course Timetable
-[Timetable-ToBe-Udpated](/docs/ViralBioinformatics2025-CourseTimetable.pdf)
+[Timetable](/images/CourseTimetable2026.pdf)
 
 ### Practical Modules
 0. [Logging in](docs/Login.md)
