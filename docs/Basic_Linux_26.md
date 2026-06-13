@@ -783,7 +783,7 @@ Most of the FASTA files in the `Exercises` directory begin with `NC_`.
    3. What is the FASTA header of the remaining FASTA file (the line beginning with `>`)?
 
 <details>
-  <summary>Commands</summary>
+  <summary>Answer</summary>
 
 ```bash
 mkdir NC_fasta
