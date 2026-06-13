@@ -5,13 +5,6 @@
 * Glasgow, UK
 * [MRC-University of Glasgow Centre for Virus Research](https://www.gla.ac.uk/research/az/cvr/)
 
-## Contact
-
-[Quan Gu](https://www.gla.ac.uk/schools/infectionimmunity/staff/quangu)  
-
-CVR Bioinformatics
-
-Email:quan.gu@glasgow.ac.uk
 
 ## Contents
 
