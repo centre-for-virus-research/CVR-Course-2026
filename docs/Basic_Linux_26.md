@@ -94,6 +94,17 @@ The workshop is designed for complete beginners and no prior Linux experience is
 
 # Tutorial
 
+
+> 💡 **A quick note before you start**
+>
+> Try not to rush through the tutorial by simply copying and pasting commands. Take a moment to think about what each command is doing and attempt the questions before revealing the answers.
+>
+> If a command doesn't behave as expected, take a moment to investigate rather than immediately looking at the answer.
+> 
+> The goal is not to finish quickly — it's to become comfortable working at the Linux command line.
+> Good luck ☺️
+
+
 ### Learning Objectives
 
 By the end of this tutorial you will be able to:
@@ -116,7 +127,7 @@ By the end of this tutorial you will be able to:
 
 Directories in Linux are the equivalent of folders on a Windows PC or Mac. Directories can contain files and/or other directories, allowing information to be organised in a hierarchical structure.
 
-The directory you are currently working in is known as your *current working directory*. To find your current working directory, use the `pwd` command (*print working directory*).
+The directory you are currently working in is known as your current working directory. To find your current working directory, use the `pwd` command (*print working directory*).
 
 From now on, whenever you see a command in a grey box, try entering it at the command line.
 
@@ -183,10 +194,11 @@ pwd
 ```
 
 You should now see:
-`/home4/your_username/linux_tutorial`<br>
-You are now in a subdirectory of your home directory called `linux_tutorial`. <br>
+`/home4/your_username/linux_tutorial`
 
-While you are here, create another new directory called `data_files` and then move into it. <br>
+You are now in a subdirectory of your home directory called `linux_tutorial`. 
+
+While you are here, create another new directory called `data_files` and then move into it. 
 Once you have done this, your current working directory should be:`/home4/your_username/linux_tutorial/data_files`
 
 <details>
@@ -214,30 +226,32 @@ Before continuing, it is probably good to know that:
 For example: `/home4/your_username/linux_tutorial/data_files`
 is the full path showing how to reach the `data_files` directory.
 
-🤔 **Question:** What do you think this path represents?
+🤔 **Question:** Looking at the path below, where do you think the `data_files` directory is located?
 
 `/home4/your_username/linux_tutorial/data_files`
 
 <details>
   <summary>Answer</summary>
 
-  Your directory is part of a larger directory structure:
-
 ```text
+
 /
 └── home4
-    └── your_username <--- your home directory
+    └── your_username <-- your home directory
         └── linux_tutorial
             └── data_files
+
 ```
+This path tells us that:
 
-- A path describes the location of a file or directory.
+-  `data_files` is inside `linux_tutorial`
+- `linux_tutorial` is inside your home directory (your_username)
+- `home4` contains your home directory
 
-- Paths beginning with `/` are called **absolute paths** because they start from the top of the directory structure.
-
+A path is simply a way of describing where a file or directory is located.
 - Each `/` separates one directory from the next.
-
 - Paths beginning with `~` start from your home directory.
+- Paths beginning with / are called **absolute paths** because they start from the top of the directory structure.
 
 - Examples:
 
@@ -292,7 +306,7 @@ cd ..
 🤔 **Question:** What do you expect your current working directory to be?
 
 <details>
-  <summary>Output</summary>
+  <summary>Answer</summary>
 You have moved up one directory so you are now in the linux_tutorial directory.
 
 ```bash
@@ -329,11 +343,13 @@ cd ~
 cd ../
 ```
 
+Try these by going into the `linux_tutorial` folder (`cd linux_tutorial`) and back home in different ways.
+
 >💡 **Note:** There is often more than one way to reach the same location in Linux.
 </details>
 <br>
 
-🤔 **Question:** Are you back in your home directory?
+Check that you are back in your home directory:
 
 ```bash
 pwd
@@ -343,8 +359,9 @@ pwd
  
  `/home4/your_username/`
 
+Now that you can move around your directories with ease let's move on to working with files.
 
-### Creating, Copying and Removing Files
+###  Copying, Creating and Removing Files
 
 #### Copying
 
@@ -352,16 +369,21 @@ The `cp` command (**copy**) is used to make a copy of a file.
 
 | Command                        | Meaning                                         |
 |--------------------------------|-------------------------------------------------|
-| `cp file.txt newfile.txt`      | Copy a file and rename the copy                 |
+| `cp file.txt file_new_name.txt`| Copy a file and rename the copy                 |
 | `cp file.txt directory_name/.` | Copy a file into a directory with the same name |
-| `cp path/file.txt .`           | Copy a file into the current directory          |
-| `cp * directory_name`          | Copy multiple files                             |
+| `cp file.txt directory_name/file_new_name.txt` | Copy a file into a directory and rename it |
+| `cp directory_name/file.txt .`   | Copy a file from another directory into the current directory |
+| `cp directory_name/file.txt ~/.` | Copy a file from another directory into your home directory |
+
 
 
 >💡 **Note:**
 >- `~` represents your home directory.
 >- `.` represents the current directory.
+>- `directory_name/.` means "into the directory called `directory_name`".
 >- Use `pwd` if you are unsure where you are.
+>- You can copy into a directory without using `/.` (using just the dir name), but it is included here to make it clear that the destination is a directory.
+
 
 #### Practise Exercises
 
@@ -379,17 +401,18 @@ You should see:
 
 >💡 **Note:** `Exercises` and `test_files` are directories and may be coloured differently to represent this.
 
-Now let's copy each of the text files from a different starting location:
+Now let's copy each of the data files from a different starting location:
 
 1. Go into your `data_files` directory and copy `human_viruses.txt` from `Linux_26` into `data_files`
 2. Go into `Linux_26` and copy `outbreak.csv` into your `data_files` directory  
 3. From your home directory copy `SARS-CoV-2.fa` into your `data_files` directory 
 
-Starting from your home directory:
+
 
 #### Walkthrough: Challenge 1:
 
-Change into your `data_files` directory, then copy `human_viruses.txt` from `Linux_26`.
+You should already be in your home dir (see above).
+Starting from your home directory, change into your `data_files` directory, then copy `human_viruses.txt` from `Linux_26`.
 
 ```bash
 cd linux_tutorial/data_files/ 
@@ -430,12 +453,12 @@ From your **home directory**, copy `/home4/VBG_data/Linux_26/SARS-CoV-2.fa` into
   <summary>Help</summary>
 
 ```bash
-cd
+cd ~
 cp /home4/VBG_data/Linux_26/SARS-CoV-2.fa linux_tutorial/data_files
 ```
 
 </details>
-
+<br>
 Check that you have all the files:
 
 ```bash
@@ -467,23 +490,25 @@ mkdir virus_notes
 cd virus_notes
 ```
 
-Now create a file where we can store some notes about viruses.
+Now create two files where we can store some notes about viruses.
 
 ```bash
 touch virus_notes.txt
+touch virus_notes_2.txt
 ls
 ```
 
-You should see `virus_notes.txt` in your directory.
+You should see `virus_notes.txt virus_notes_2.txt` in your `virus_notes` directory.
 
 ### Moving and Renaming Files
 
 The `mv` command (*move*) can be used to move files between directories or rename files and directories.
 
-Let's make our notes a little more specific by creating a copy for influenza viruses.
+Let's make our `virus_notes.txt` a little more specific by renaming it to `influenza_notes.txt`.
 
 ```bash
-cp virus_notes.txt influenza_notes.txt
+mv virus_notes.txt influenza_notes.txt
+ls
 ```
 
 🤔 **Question:** What files do you have now?
@@ -491,26 +516,42 @@ cp virus_notes.txt influenza_notes.txt
 <details>
   <summary>Answer</summary>
 
-```bash
-ls
-```
+`influenza_notes.txt virus_notes_2.txt`
 
-`virus_notes.txt influenza_notes.txt`
 </details>
 <br>
 
-Rename `virus_notes.txt` to `rabies_notes.txt` so that neither file is generic.
+🤔 **Question:** What happened to `virus_notes.txt`?
 
+<details>
+  <summary>Answer</summary>
+
+It has been renamed (moved `mv`) to `influenza_notes.txt`!
+
+</details>
+<br>
+
+Now rename `virus_notes_2.txt` to `rabies_notes.txt`.
 
 <details>
   <summary>Answer</summary>
 
 ```bash
-mv virus_notes.txt rabies_notes.txt
+mv virus_notes_2.txt rabies_notes.txt
+```
+</details>
+<br>
+
+🤔 **Question:** What files are in the directory now?
+
+<details>
+  <summary>Answer</summary>
+
+```bash
 ls
 ```
 
-You should now have `influenza_notes.txt rabies_notes.txt` in your `virus_notes` dir.
+`influenza_notes.txt rabies_notes.txt`
 </details>
 <br>
 
@@ -523,11 +564,10 @@ Finally in your `virus_notes` directory make a final text file named `tuberculos
 touch tuberculosis_notes.txt
 ls
 ```
-
 </details>
 <br>
 
-You should now have `influenza_notes.txt rabies_notes.txt tuberculosis_notes.txt`.
+You should now have `influenza_notes.txt rabies_notes.txt tuberculosis_notes.txt` in your `virus_notes` directory.
 
 🤔 **Question:** Are you happy with your three virus notes files?
 
@@ -546,13 +586,13 @@ You should now have `influenza_notes.txt rabies_notes.txt tuberculosis_notes.txt
 <details>
   <summary>No</summary>
 
-  😃 Hopefully you spotted that tuberculosis is a bacterial infection and has no place in a virus_notes directory so we should remove it.
+  😃 Hopefully you spotted that tuberculosis is a bacterial infection and has no place in a `virus_notes` directory so we should remove it.
 
 </details>
 <br>
 
 
-#### Removing Files
+### Removing Files
 
 The `rm` command (*remove*) is used to permanently delete files. 
 
@@ -569,6 +609,14 @@ You should now have two files `influenza_notes.txt rabies_notes.txt` in your `vi
 
 ### Editing Files
 
+To edit files, it is usually easier to use a text editor rather than recreate the file from scratch. One simple text editor available on most Linux systems is `nano`.
+
+The `nano` command opens a simple text editor for creating and editing text files.
+
+>💡 **Note:**
+>
+> Unlike commands such as `ls` or `cp`, `nano` opens an interactive text editor. Once inside, you can type directly into the file and use the keyboard shortcuts listed along the bottom of the editor window to save your changes.
+
 Let's put some information into our `influenza_notes.txt` file and save it using the text editor `nano`.
 
 ```bash
@@ -577,7 +625,7 @@ nano influenza_notes.txt
 
 Now type: Influenza A(H5N1)
 
-Then add: `Often called bird flu, Influenza A(H5N1), primarily infects birds but can occasionally infect humans. Human infections are rare but can cause severe disease.`
+Then add: "Often called bird flu, Influenza A(H5N1), primarily infects birds but can occasionally infect humans. Human infections are rare but can cause severe disease."
 
 When you have finished:
 
@@ -622,6 +670,7 @@ Quit `less` by pressing **q**.
 cd ~/linux_tutorial/virus_notes
 less influenza_notes.txt
 ```
+You should see the text that you added to your `influenza_notes.txt` file.
 
 Press **q** to exit `less`, then look at `outbreak.csv`
 
@@ -631,7 +680,7 @@ cd data_files
 less outbreak.csv
 ```
 
-You should see the text that you wrote for `influenza_notes.txt` and a scrollable file for `outbreak.csv`.
+You should see a scrollable file for `outbreak.csv`.
 
 Press **q** to exit `less`
 
@@ -644,7 +693,7 @@ The `less` command has several useful keyboard shortcuts:
  | `Space` | Next page |
  | `b` | Previous page |
  | `↑` / `↓` | Move up or down |
- | `q` | Quit `less` |
+ | `q` | Quit |
 
 Try the shortcuts while looking at the other two data files, remembering to press **q** to exit `less` between each command.
 
@@ -710,7 +759,7 @@ Before we start, copy the `Exercises` directory from `VBG_data` into your `linux
 cp -r /home4/VBG_data/Linux_26/Exercises ~/linux_tutorial/.
 ```
 
->💡 **Note:** As `Exercises` is a directory rather than a file. The `-r ` (recursive) option tells `cp` to copy the directory and everything inside it. Without `-r`, Linux will not copy directories.
+>💡 **Note:** As `Exercises` is a directory rather than a file, the `-r` (recursive) option tells `cp` to copy the directory and everything inside it.
 
 
 #### Exercise 1: 
@@ -783,7 +832,7 @@ Most of the FASTA files in the `Exercises` directory begin with `NC_`.
    3. What is the FASTA header of the remaining FASTA file (the line beginning with `>`)?
 
 <details>
-  <summary>Answer</summary>
+  <summary>Commands</summary>
 
 ```bash
 mkdir NC_fasta
@@ -791,4 +840,6 @@ mv NC_*.fa NC_fasta
 ls *.fa
 less Betacoronaviruses.fa
 ```
-</details>
+The FASTA header for this file begins:
+
+>lcl|NC_014470.1_cds_YP_003858583.1_1 
