@@ -1,8 +1,10 @@
 # Read Cleaning and Quality Control Practical
 
-## [9th Viral Bioinformatics and Genomics Training Course](https://github.com/centre-for-virus-research/CVR-Course-2026)
-* Monday 15th - Friday 19th June 2026
-* Glasgow, UK
+## Contact
+
+[Quan Gu](https://www.gla.ac.uk/schools/infectionimmunity/staff/quangu)  
+
+Email:quan.gu@glasgow.ac.uk
 
 ## Contents
 
