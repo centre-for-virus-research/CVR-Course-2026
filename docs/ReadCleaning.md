@@ -1,6 +1,8 @@
 # Read Cleaning and Quality Control Practical
 
-**Contact** : [Quan Gu](https://www.gla.ac.uk/schools/infectionimmunity/staff/quangu), quan.gu@glasgow.ac.uk
+**Contact** : [Quan Gu](https://www.gla.ac.uk/schools/infectionimmunity/staff/quangu)
+
+Email: quan.gu@glasgow.ac.uk
 
 ## Contents
 
