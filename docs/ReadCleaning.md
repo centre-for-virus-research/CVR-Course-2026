@@ -13,6 +13,10 @@ We have two samples:
 * ERR13712192
 * ERR13712193
 
+Our data is from the paper: [Faizo AAA et al.(2025)](https://doi.org/10.1371/journal.ppat.1012697).  The link to the original data is https://www.ebi.ac.uk/ena/browser/view/PRJEB80489.  
+
+To improve the speed of this session, we have also subsampled ~5-10% of the original data. 
+
 ## 1: Explore the data
 
 We first need to copy the data folder that we will need for this practical into your own home directory.
@@ -23,15 +27,15 @@ First, let's make sure we are in the right location on the server by moving into
 cd
 ```
 
-Now, enter the following command to copy the data folder for the practical. Our data is from the paper: [Faizo AAA et al.(2025)](https://doi.org/10.1371/journal.ppat.1012697).
-The link to the original data is https://www.ebi.ac.uk/ena/browser/view/PRJEB80489. To improve the speed of this session, we have also subsampled ~5-10% of the original data for this session. (i.e. *sub.fastq)
+Now, enter the following command to copy the data folder for the practical. 
+
 We could copy the data to our own directory.
 
 ```
 cp -r /home4/VBG_data/RNASeq/QC/  .
 ```
 
-If you list the contents of the new copied QC folder:
+If you list the contents of the newly copied QC folder:
 
 ```
 ls QC
@@ -46,20 +50,20 @@ Now let’s change directory (cd) into the first sample's folder:
 cd ~/QC/ERR13712192
 ```
 
-If you list (ls) the contents of this directory you should see a pair of FASTQ reads:
+If you list (ls) the contents of this directory, you should see a pair of FASTQ reads:
 
 ```
 ls
 ```
 
-You should see that there is a set of paired-end reads. In this session, we used the subsampling data (*_sub) to speed up our session.
+You should see a set of paired-end reads. In this session, we used the subsampled data (*_sub) to speed up our session.
 
 ```
 A_NoDrug_R1_sub.fastq.gz 
 A_NoDrug_R2_sub.fastq.gz
 ```
 
-Currently, the files have been zipped (compressed) using the gzip program hence the .gz file extension on the filenames. So, we will first unzip them using the gunzip command:
+Currently, the files have been zipped (compressed) using the gzip program, hence the .gz file extension on the filenames. So, we will first unzip them using the gunzip command:
 
 ``` 
 gunzip *.gz
@@ -77,7 +81,7 @@ A_NoDrug_R1_sub.fastq
 A_NoDrug_R2_sub.fastq
 ``` 
 
-One useful thing to check initially is that the R1 and R2 files for each pair contain the same number of reads. If they don’t then it suggests something is wrong, the two files might be out of sync, or one file may be truncated.
+One useful thing to check initially is that the R1 and R2 files for each pair contain the same number of reads. If they don’t, then it suggests something is wrong, the two files might be out of sync, or one file may be truncated.
 
 Here is the command to count the number of lines in a file:
 
@@ -97,7 +101,7 @@ awk 'END {print NR/4}' A_NoDrug_R1_sub.fastq
 **Optional Task： Get basic reads stats from prinseq:**
 
 
-A more detailed overview of the FASTQ reads can be viewed by using a program called prinseq, which has a number of stats options which can give us a summary of the number of reads, their average lengths, and how many have an N base:
+A more detailed overview of the FASTQ reads can be viewed by using a program called prinseq, which has several stats options which can give us a summary of the number of reads, their average lengths, and how many have an N base:
 
 ```
 prinseq-lite.pl -stats_info -stats_len -stats_ns -fastq A_NoDrug_R1_sub.fastq -fastq2 A_NoDrug_R2_sub.fastq
@@ -150,7 +154,7 @@ We can visually inspect the quality of our paired-end reads by using a tool call
 fastqc A_NoDrug_R1_sub.fastq A_NoDrug_R2_sub.fastq
 ```
 
-If you list the contents of the directory now, you should see two .html files outputted by fastqc which contain the fastqc report
+If you list the contents of the directory now, you should see two .html files outputted by fastqc, which contain the fastqc report
 
 ```  
 A_NoDrug_R1_sub_fastqc.html  
@@ -187,7 +191,7 @@ Here is the summary of each module and what each plot shows.
 
 # 3: Trimming the FASTQ reads 
  
-Typically, the first thing you want to do with your FASTQ reads is some basic quality control. The primary goal of this is to remove low quality reads and low quality ends of reads from the data, as low quality = high error rate.
+Typically, the first thing you want to do with your FASTQ reads is some basic quality control. The primary goal of this is to remove low-quality reads and low-quality ends of reads from the data, as low quality = high error rate.
  
 1. Remove any Illumina adapter sequences that are within the read sequences
 2. Trim off poor quality sections from the 5’ ends of reads
