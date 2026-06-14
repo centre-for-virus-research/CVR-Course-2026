@@ -4,8 +4,6 @@
 
 [Quan Gu](https://www.gla.ac.uk/schools/infectionimmunity/staff/quangu)  
 
-Email:quan.gu@glasgow.ac.uk
-
 ## Contents
 
 In this session, we will work with two paired-end FASTQ samples and perform basic quality control of the sequencing reads. Step-by-step instructions will be provided for processing the first sample, after which you will apply the same workflow independently to analyse the second sample.
