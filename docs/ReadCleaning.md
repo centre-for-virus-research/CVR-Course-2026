@@ -180,6 +180,9 @@ Meanwhile, the GC content distribution deviates slightly from the theoretical no
 
 Among these modules, "Per Base Sequence Quality" and "Adapter Content" are normally the most important. "Per Base Sequence Quality" detects quality degradation along reads, while  "Adapter Content" detects known adapter sequences remaining in reads. High adapter levels suggest trimming is required.
 
+Here is the summary of each module and what each plot shows.
+![](https://github.com/centre-for-virus-research/CVR-Course-2026/blob/main/images/fastqcmodule.png)
+
 **Question 2.2:** We have opened the FASTQC report from the R1 file with the above Firefox command - how would we view the R2 file's fastqc report?
 
 # 3: Trimming the FASTQ reads 
