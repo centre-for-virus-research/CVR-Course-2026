@@ -1,6 +1,6 @@
 # Read Cleaning and Quality Control Practical
 
-## Contact
+# Contact
 
 [Quan Gu](https://www.gla.ac.uk/schools/infectionimmunity/staff/quangu)  
 
