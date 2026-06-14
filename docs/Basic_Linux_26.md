@@ -516,7 +516,7 @@ ls
 <details>
   <summary>Answer</summary>
 
-`influenza_notes.txt virus_notes_2.txt`
+You should have `influenza_notes.txt virus_notes_2.txt`
 
 </details>
 <br>
@@ -534,7 +534,7 @@ It has been renamed (moved `mv`) to `influenza_notes.txt`!
 Now rename `virus_notes_2.txt` to `rabies_notes.txt`.
 
 <details>
-  <summary>Answer</summary>
+  <summary>Help</summary>
 
 ```bash
 mv virus_notes_2.txt rabies_notes.txt
