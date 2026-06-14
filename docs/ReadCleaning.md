@@ -5,6 +5,13 @@
 * Glasgow, UK
 * [MRC-University of Glasgow Centre for Virus Research](https://www.gla.ac.uk/research/az/cvr/)
 
+## Contact
+
+[Quan Gu](https://www.gla.ac.uk/schools/infectionimmunity/staff/quangu)  
+
+CVR Bioinformatics
+
+Email:quan.gu@glasgow.ac.uk
 
 ## Contents
 
@@ -19,21 +26,21 @@ We have two samples:
 
 We first need to copy the data folder that we will need for this practical into your own home directory.
 
-First, let's make sure we are in the right location on the server by moving into our home directory:
+First, lets make sure we are in the right location on the server by moving into our home directory:
 
 ```
 cd
 ```
 
-Now, we enter the following command to copy the data folder for the practical. Our data is from the paper: [Faizo AAA et al.(2025)](https://doi.org/10.1371/journal.ppat.1012697).
-The link to the original data is https://www.ebi.ac.uk/ena/browser/view/PRJEB80489. To improve the speed of this session, we have also subsampled ~5-10% of the original data for this session. (i.e. *sub.fastq)
+Now enter the following command to copy the data folder for the practical. Our data is from the paper: [Faizo AAA et al.(2025)](https://doi.org/10.1371/journal.ppat.1012697).
+The link of the original data is https://www.ebi.ac.uk/ena/browser/view/PRJEB80489. To improve the speed of this session, we have also subsampled ~5-10% of the original data for this session. (i.e. *sub.fastq)
 We could copy the data to our own directory.
 
 ```
 cp -r /home4/VBG_data/RNASeq/QC/  .
 ```
 
-If you list the contents of the newly copied QC folder:
+If you list the contents of the new copied QC folder:
 
 ```
 ls QC
@@ -93,10 +100,10 @@ Moreover, do we have alternative way to count the number of reads in each file? 
 awk 'END {print NR/4}' A_NoDrug_R1_sub.fastq
 ``` 
 
-**Question 1:** Why do these two methods have different results? How many pairs of reads are actually in this sample?
+**Question1:** Why do these two methods have different results? How many pairs of reads are actually in this sample?
 
 
-A more detailed overview of the FASTQ reads can be viewed by using a program called prinseq, which has several stats options which can give us a summary of the number of reads, their average lengths, and how many have an N base:
+A more detailed overview of the FASTQ reads can be viewed by using a program called prinseq which has a number of stats options which can give us a summary of the number of reads, their average lengths, and how many have an N base:
 
  
 **Optional Task：Get basic reads stats from prinseq:**
@@ -105,7 +112,7 @@ A more detailed overview of the FASTQ reads can be viewed by using a program cal
 prinseq-lite.pl -stats_info -stats_len -stats_ns -fastq A_NoDrug_R1_sub.fastq -fastq2 A_NoDrug_R2_sub.fastq
 ```
 
-Command breakdown: we run the prinseq program, which is a Perl script called **prinseq-lite.pl**, and we tell it to output basic stats (**-stats\_info**), length stats (**-stats\_len**) and N base stats (**-stats\_ns**) on the FASTQ file (**-fastq**) and its pair (**-fastq2**)
+Command breakdown: we run the prinseq program which is a perl script called **prinseq-lite.pl** and we tell it to output basic stats (**-stats\_info**), length stats (**-stats\_len**) and N base stats (**-stats\_ns**) on the FASTQ file (**-fastq**) and it’s pair (**-fastq2**)
 
 ```
 stats_info	bases	576703576
@@ -159,23 +166,36 @@ A_NoDrug_R1_sub_fastqc.html
 A_NoDrug_R2_sub_fastqc.html
 ```  
 
-To open these files, you can use the MobaXterm file browser on the left-hand side to navigate to the folder and download the files locally onto your laptop, or enter:
+To open these files you can use the MobaXterm file browser on the left hand side to navigate to the folder and download the files locally onto your laptop, or enter:
 
 ```
 firefox A_NoDrug_R1_sub_fastqc.html 
 ```
+We could see the QC plot.
+![](https://github.com/centre-for-virus-research/CVR-Course-2026/blob/main/images/fastqc-perbase.png)
 
-A help file explaining the different FastQC plots and analyses is here:
+**Question2.1:** What could we get from this Per base sequence quality plot? Is it a good sample?  
 
-[https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/)
+From the FastQC summary, most modules are "OK", while only Per base sequence content and Per sequence GC content are flagged as “Fail”. 
+![](https://github.com/centre-for-virus-research/CVR-Course-2026/blob/main/images/fastqqc.png)
 
-**Question 2:** We have opened the FastQC report from the R1 file with the above Firefox command - how would we view the R2 file's FastQC report?
+Does this mean the reads are of poor quality?
+
+Not necessarily.
+
+Per-base sequence content shows bias at the beginning of reads, which is expected in RNA-seq due to random priming. The rest of the read is relatively stable, so this warning is generally acceptable.  
+
+Meanwhile, the GC content distribution deviates slightly from the theoretical normal distribution, which is expected in RNA-seq due to transcript-specific GC biases. No major abnormalities or contamination patterns are observed.
+
+Among these modules, "Per Base Sequence Quality" and "Adapter Content" are normally most important. "Per Base Sequence Quality" detects quality degradation along reads, while  "Adapter Content" detects known adapter sequences remaining in reads. High adapter levels suggest trimming is required.
+
+**Question2.2:** We have opened the fastqc report form the R1 file with the above firefox command - how would we view the R2 file's fastqc report?
 
 # 3: Trimming the FASTQ reads 
  
-Typically, the first thing you want to do with your FASTQ reads is some basic quality control. The primary goal of this is to remove low-quality reads and low-quality ends of reads from the data, as low quality = high error rate.
+Typically, the first thing you want to do with your FASTQ reads is some basic quality control. The primary goal of this is to remove low quality reads and low quality ends of reads from the data as low quality = high error rate.
  
-1. Remove any Illumina adapter sequences that are within the read sequences
+1. Remove any illumina adapter sequences that are within the read sequences
 2. Trim off poor quality sections from the 5’ ends of reads
 3. Remove short reads
 4. Remove any sequences with an N (as an N can signify a major quality issue with the read)
@@ -202,17 +222,17 @@ A_NoDrug_R1_sub.fastq_trimming_report.txt
 A_NoDrug_R2_sub.fastq_trimming_report.txt
 ``` 
 
-**Question 3.1:** - How many reads are left after trimming?
-**Question 3.2:** - Could you please review the trimming report?  
+**Question3.1:** - How many reads are left after trimming?
+**Question3.2:** - Could you please review the trimming report?  
 
 ## 4: Trimming on your own
 
-You should now attempt to apply what you have learnt to the second sample in the QC folder. You can still try the subsampled ones. The tasks:
+You should now attempt to apply what you have learnt to the second sample in the QC folder. You can still try subsampled ones. The tasks:
 
 1) **Copy** into the appropriate folder to work;
 2) **Unzip** the reads;
-3) Use **prinseq** to count the number of reads and bases, etc. (this step is optional);
-4) Run **FASTQC** on the reads and view the results with Firefox (or copy the HTML output to your local machine to view);
+3) Use **prinseq** to count the numnber of reads and bases etc (this step is optional);
+4) Run **FASTQC** on the reads and view the results with firefox (or copy the HTML output to your local mahcine to view);
 5) Run **Trim Galore** on the reads using the same quality and length setting used previously.
 
 **Bonus Question**:
@@ -223,10 +243,12 @@ Could you re-run QC steps on the original RNA-Seq data to see how long it takes?
  
 **What quality threshold should you use?** 
 
-There is no gold standard answer to this question. It depends on your objective (e.g. consensus calling, RNA-Seq vs quasispecies), how much data there is (e.g. viral load), and what sequencing technology was used. 
-In general, for Illumina data, a quality threshold of **20** is used when doing consensus genome sequence generation, but increase this to quality **30** when doing quasispecies low frequency variant analyses. 
-Moreover, if your NGS data is RNA-Seq, a "gentle" trimming method would be applied because the strict trimming will impact the downstream gene expression.
+There is no simple answer to this question. It depends on many things including what is the objective (e.g. consensus calling, RNA-Seq vs quasispecies), how much data there is (e.g. viral load), and what sequencing technology was used. In general for Illumina data, a quality threshold of **20** when doing consensus genome sequence generation, but increase this to quality **30** when doing quasispecies low frequency variant analyses. However, if you have a poor run and/or there are not many viral reads in the data, you could try lowering the quality threshold – BUT on the understanding that you are accepting poorer quality data which may influenze your results. It is the same with minimum read length, if you originally had 300 base reads but after trimming only 30 bases are left, although those remaining 30 bases may be above your quality threshold, 90% of the read was removed due to poor quality – do you trust the rest of it? These are not straightforward questions to answer.
+Moreover, if you NGS data is RNA-Seq, a "gentle" trimming method would be applied because the strict trimming will impact the downstream gene exression.
 
-**Additional filtering?** For quasispecies analyses, you can add a prinseq filtering step to remove reads that have an average quality that is less than the threshold (using the -min_qual_mean argument), as trim_galore does not do this (it just trims low-quality sections from reads from the 3’ end).  
+**Additional filtering?** For quasispecies analyses, you can add an additional prinseq filtering step using to remove reads that have an average quality that is less than the threshold (using the -min_qual_mean argument) as trim_galore does not do this (it just trims low quality sections from reads from the 3’ end)  
+
+**Do we have the help file of FASTQC?** Yes, a help file explaining the different FASTQC plots and analyses is here:
+
+[https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/)
  
-
