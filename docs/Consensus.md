@@ -205,7 +205,6 @@ samtools mpileup -aa -A -d 0 -Q 0 -f ../Refs/sars2_ref.fasta S1.bam | ivar varia
 
 ```
 
-
 # 5: Extra section - Variant Calling with LoFreq
 
 Now we will be using a slightly more advanced variant caller called [LoFreq](https://github.com/CSB5/lofreq) to call the low (and high) frequency variants present in the sample BAM file. LoFreq uses numerous statistical methods and tests to attempt to distinguish true low frequency viral variants from sequence errors. It requires a sample BAM file and corresponding reference sequence that it was aligned to, and creates a [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) file as an output.
@@ -261,7 +260,7 @@ Now you task is to run LoFreq to characterise the mutations in Sample 2?
 
 # 5.1: Extra Data
 
-If you are looking for something extra to do, there are additional data sets located in the folder:
+If you are looking for something extra to do, there are additional data sets located in the below folders - but you will need to align them first!
 
 ### ~/Richard/Ebola/
 
