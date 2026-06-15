@@ -225,6 +225,8 @@ samtools view -c -F2308 S1.bam
 
 For small RNA viruses, secondary and supplementary alignments tend to be rare, but it is important to know the distinction between mapped **reads** and mapped read **alignments**.
 
+**Please note:** as this is a simulated data set it is very clean. There will be few (if any) unmapped reads, and few (if any) supplementary and secondary reads. 
+
 ### Samtools Samtools Samtools
 
 Samtools has so many useful functions, and we are just scratching the surface here. Two of the functions I use the most are **flagstat** and **idxstats**, if you have time at the end of the session you could explore these funcaitons yourself. The doc pages are here: [https://www.htslib.org/doc/samtools-flagstat.html](https://www.htslib.org/doc/samtools-flagstat.html) and [https://www.htslib.org/doc/samtools-idxstats.html](https://www.htslib.org/doc/samtools-idxstats.html). 
