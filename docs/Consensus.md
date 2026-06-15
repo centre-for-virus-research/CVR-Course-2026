@@ -76,27 +76,86 @@ and when it has finished (and your prompt returns) you should see our consensus 
 ls
 ```
 
-You can view via the sequence itself command line (we will be covering variants later):
+You can view via the sequence itself command line:
 
 ```
 cat S1.fa 
 ```
 
+# 2: Variant calling with iVar
+
+Viruses, and in particular RNA viruses, can exist as complex populations consisting of numerous variants present at a spectrum of frequencies – the so called viral quasispecies. Although we have created a consensus sequence (which typically considers mutations at a frequency >50% in the sample) using iVar, we do not yet know anything about the mutations within the sample - although that information is embedded within the consensus sequence. Furthermore, it is often necessary to go beyond the consensus, and investigate the spectrum of low frequency mutations present in the sample.
+
+iVar itself can be used to call variants (using the [iVar variants](https://andersen-lab.github.io/ivar/html/manualpage.html) command), and annotate variants in terms of amino acid changes if the reference's GFF file is supplied (this can normally be downloaded directly from GenBank). Full definitions of the General Feature Format (GFF) format are available here:
+
+* [https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/file-formats/annotation-files/about-ncbi-gff3/](
+https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/file-formats/annotation-files/about-ncbi-gff3/)
+* [https://www.ensembl.org/info/website/upload/gff3.html](https://www.ensembl.org/info/website/upload/gff3.html)
+
+
+The command to call variants with iVar is very similar to the consensus command:
+
+```
+samtools mpileup -aa -A -d 0 -Q 0 S1.bam | ivar variants -r ../Refs/sars2_ref.fasta -p S1_variants
+```
+
+Breaking this command down, there are two parts:
+
+1. samtools [mpileup](http://www.htslib.org/doc/samtools-mpileup.html) which essentially outputs the base and indel counts for each genome position
+	* **-aa** = output data for absolutely all positions (even zero coverage ones)
+	* **-A** = count orphan reads (reads whose pair did not map)
+	* **-d 0** = override the maximum depth (default is 8000 which is typically too low for viruses)
+	* **-Q 0** = minimum base quality, 0 essentially means all the data
+2. ivar [variants](https://andersen-lab.github.io/ivar/html/manualpage.html) - this calls the variants - the output of the samtools mpileup command is piped `|` directly into ivar
+	* -p S1_variants = prefix with which to name the output file
+	* -r ../Refs/sars2_ref.fasta = the reference file name, iVar needs it this time
+
+If you list the directory contents you should see our new output file S1_variants.tsv (a tab separated text file).
+
+```
+ls
+```
+
+and now view the file:
+
+```
+cat S1_variants.tsv
+```
+
 ***
-### Questions
-
-**Question 9** - try copying and pasting the created consensus sequence into [NCBI Blast](https://blast.ncbi.nlm.nih.gov/Blast.cgi) - what is the closest sample on GenBank?
+**Question 1** - how many variants/mutations are in the S1_variants file? Hint - each variant is on its own line
 ***
 
-## 1.1: Consensus calling on your own
+By default, iVar will apply a minimum variant frequency threshold of 0.03 (3%), any variant below this will not be reported by default. However, we can vary this with the -t argument. 
 
-You now need to call the consensus sequence for Sample2, so you'll need to change directory to the appropriate folder and adapt the ivar command for the Sample2 files.
+First, lets increase the frequency to 0.5 (50%):
 
-# 2: Variant calling
+```
+samtools mpileup -aa -A -d 0 -Q 0 S1.bam | ivar variants -r ../Refs/sars2_ref.fasta -p S1_variants50 -t 0.5
+```
 
-Viruses, and in particular RNA viruses, can exist as complex populations consisting of numerous variants present at a spectrum of frequencies – the so called viral quasispecies. Although we have created a consensus sequence (which typically considers mutations at a frequency >50% in the sample) using iVar, we do not yet know anything about the mutations within the sample. Furthermore, it is often necessary to go beyond the consensus, and investigate the spectrum of low frequency mutations present in the sample.
+***
+**Question 2** - how many variants/mutations are in this file? Is it more or less than before? Why?
+***
 
-iVar itself could be used to call variants (using the [iVar variants](https://andersen-lab.github.io/ivar/html/manualpage.html) command). But here we will be using a slightly more advanced variant caller called [LoFreq](https://github.com/CSB5/lofreq) to call the low (and high) frequency variants present in the sample BAM file. LoFreq uses numerous statistical methods and tests to attempt to distinguish true low frequency viral variants from sequence errors. It requires a sample BAM file and corresponding reference sequence that it was aligned to, and creates a [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) file as an output.
+Next, lets decrease the frequency to 0.005 (0.5%):
+
+```
+samtools mpileup -aa -A -d 0 -Q 0 S1.bam | ivar variants -r ../Refs/sars2_ref.fasta -p S1_variants05 -t 0.005
+```
+
+***
+**Question 2** - how many variants/mutations are in this file? Is it more or less than before? Why?
+***
+
+It is up to us to determine what the minimum frequency of a variant should be - there is no blanket rule. I previously worked on charcterising RT-PCR and NGS errors in next generation sequencing and we came up with a 0.05% threshold where we would not trust anything below this. BUT - this is highly dependent on the sample processing (RT, PCR etc) and sequencing error rate. The lower you go, the more uncertain the results without further validation - e.g. replicates, lab validation.
+
+2.1
+
+
+
+
+But here we will be using a slightly more advanced variant caller called [LoFreq](https://github.com/CSB5/lofreq) to call the low (and high) frequency variants present in the sample BAM file. LoFreq uses numerous statistical methods and tests to attempt to distinguish true low frequency viral variants from sequence errors. It requires a sample BAM file and corresponding reference sequence that it was aligned to, and creates a [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) file as an output.
 
 First, lets make sure we are in the correct folder to work on Sample1:
 
