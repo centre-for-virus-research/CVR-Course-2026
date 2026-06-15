@@ -233,7 +233,7 @@ You should now attempt to apply what you have learnt to the second sample in the
 
 **Bonus Question**:
 
-Could you re-run QC steps on the original RNA-Seq data to see how long it takes?
+Could you re-run QC steps on the original RNA-Seq data to see how long it takes? The data are located in /home4/VBG_data/RNASeq/QC_Rawdata 
  
 ## 5: Notes
  
