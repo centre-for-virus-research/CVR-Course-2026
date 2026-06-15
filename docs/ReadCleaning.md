@@ -227,13 +227,13 @@ You should now attempt to apply what you have learnt to the second sample in the
 
 1) **Copy** into the appropriate folder to work;
 2) **Unzip** the reads;
-3) Use **prinseq** to count the number of reads and bases, etc. (this step is optional);
+3) Use **prinseq** to count the number of reads and bases, etc. (this task is optional);
 4) Run **FASTQC** on the reads and view the results with Firefox (or copy the HTML output to your local machine to view);
 5) Run **Trim Galore** on the reads using the same quality and length setting used previously.
 
-**Bonus Question**:
+**Bonus Question (you can do it at home)**:
 
-Could you re-run QC steps on the original RNA-Seq data to see how long it takes? The data are located in /home4/VBG_data/RNASeq/QC_Rawdata 
+Could you re-run QC steps on the original RNA-Seq data to see how long it takes? The data are located in **/home4/VBG_data/RNASeq/QC_Rawdata** 
  
 ## 5: Notes
  
