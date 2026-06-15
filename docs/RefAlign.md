@@ -68,7 +68,7 @@ The reference file that we will be using is located in the Refs folder ~/Richard
 ls ../Refs
 ```
 
-You should see a file called:
+You should see a file called (as well as an Ignore subfolder which you can ignore):
 
 **sars2_ref.fasta**  
 
