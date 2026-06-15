@@ -1,6 +1,6 @@
 # Reference Alignment and Coverage Practical
 ## [Introduction to Viral Bioinformatics Training Course](https://github.com/centre-for-virus-research/CVR-Course-2026)
-* Monday 15th - Friday 19th June 2025
+* Monday 15th - Friday 19th June 2026
 * Glasgow, UK
 * [MRC-University of Glasgow Centre for Virus Research](https://www.gla.ac.uk/research/az/cvr/)
 
