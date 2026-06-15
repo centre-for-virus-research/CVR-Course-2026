@@ -1,4 +1,4 @@
-# Reference Alignment Practical
+# Reference Alignment and Coverage Practical
 ## [Introduction to Viral Bioinformatics Training Course](https://github.com/centre-for-virus-research/CVR-Course-2026)
 * Monday 15th - Friday 19th June 2025
 * Glasgow, UK
@@ -16,9 +16,8 @@ E-mail: Richard.Orton@glasgow.ac.uk
 
 ## Contents
 
-This practical is associated with a lecture on Reference Alignment of High-Throughoput Sequencing (HTS) reads to a reference sequence.
+This practical is associated with a lecture on Reference Alignment of High-Throughoput Sequencing (HTS) reads to a reference sequence. In this session, we will be working with two sets of Illumina paired end reads which were simulated from the viral genomes of two different SARS-CoV-2 samples; these simulated reads were created using ART (Huang et al., 2012: [10.1093/bioinformatics/btr708](10.1093/bioinformatics/btr708)). The goal now is to align these reads to a reference genome sequence, with an ultimate goal of creating a consensus sequence for mutation anlysis.
 
-* [0: Overview](#0-overview)
 * [1: Setup](#1-setup)
 	+ [1.2: Read quality control](#12-read-quality-control)
 * [2: Read Alignment](#2-read-alignment)
@@ -28,17 +27,11 @@ This practical is associated with a lecture on Reference Alignment of High-Throu
 	+ [2.4: Basic alignment statistics](#24-basic-alignment-statistics)
  	+ [2.5: Coverage plot](#25-coverage-plots) 
 * [3: Alignment on your own](#3-alignment-on-your-own)
-* [4: Consensus calling](#4-consensus-calling)
- 	+ [4.1: Consensus calling on your own](#41-consensus-calling-on-your-own)
-* [5: Extra data](#5-extra-data)
-* [6: Assembly visualisation with tablet](#6-assembly-visualisation-with-tablet)
- 
+* [4: Extra data](#4-extra-data)
 
 # 1: Setup
 
 **Make sure you are logged into the alpha2 server with MobaXterm.**
-
-In this session, we will be working with two sets of Illumina paired end reads which were simulated from the viral genomes of two different SARS-CoV-2 samples; these simulated reads were created using ART (Huang et al., 2012: [10.1093/bioinformatics/btr708](10.1093/bioinformatics/btr708)). The goal now is to align these reads to a reference genome sequence, with an ultimate goal of creating a consensus sequence for mutation anlysis.
 
 To start off, you will need to copy the data we need for the practical to your home directory. First change directory (cd) to your home directory:
 
@@ -151,7 +144,7 @@ samtools index S1.bam
 
 ***Command breakdown:***
 
-1.	The first command tells samtools to **sort** the SAM file, and to also output (**-o**)the sorted data in BAM format to a file called **S1.bam**. This sorts all the alignmed reads by alignment start position, placing all the reads whose alignment starts at reference position 1 first, then those that start of position 2, then 3, 4, 5 and so on.
+1.	The first command tells samtools to **sort** the SAM file, and to also output (**-o**)the sorted data in BAM format to a file called **S1.bam**. This sorts all the aligned reads by alignment start position, placing all the reads whose alignment starts at reference position 1 first, then those that start of position 2, then 3, 4, 5 and so on.
 3.	We then use samtools to **index** the BAM file S1.bam (indexing [which relies on sorted data] enables faster searches downstream).
 
 
@@ -232,27 +225,9 @@ samtools view -c -F2308 S1.bam
 
 For small RNA viruses, secondary and supplementary alignments tend to be rare, but it is important to know the distinction between mapped **reads** and mapped read **alignments**.
 
-Two (of the many) useful functions of samtools are idxstats and flagstat, which output various read number related to mapping:
+### Samtools Samtools Samtools
 
-```
-samtools idxstats S1.bam
-```
-idxstats will give you the number of mapped read alignments for **every** reference sequence used - so you will have more than one line if your reference was say a segmented virus. The fields outputted are:
-
-1. Reference name - the last line outputted is always called * and represents unmapped reads, but only reads where **both** members of a pair are unmapped are recorded here
-2. Reference length
-3. Number of mapped read alignments (NB - this is not reads, this is read alignments i.e. F4 not F2308 - see above)
-4. Number of unmapped reads - this often confuses people - this is unmapped reads where the other member of the pair did map
-
-**NB:** to get the total number of mapped reads from idxstats - you would have to sum up the values in the 4th column
-**NB:** for single end data the 4th column (representing unmapped) will only have a value on the last line (ref = *) as there are no pairs
-**NB:** the doc page is here: [https://www.htslib.org/doc/samtools-idxstats.html](https://www.htslib.org/doc/samtools-idxstats.html)
-
-```
-samtools flagstat S1.bam
-````
-flagstat will produce various QC metrics on the BAM file as a whole (not per reference) - such as number of reads in total and the number of mapped read alignments, secondary alignments, supplementary alignments etc. The doc page is here: [https://www.htslib.org/doc/samtools-flagstat.html](https://www.htslib.org/doc/samtools-flagstat.html)
-
+Samtools has so many useful functions, and we are just scratching the surface here. Two of the functions I use the most are **flagstat** and **idxstats**, if you have time at the end of the session you could explore these funcaitons yourself. The doc pages are here: [https://www.htslib.org/doc/samtools-flagstat.html](https://www.htslib.org/doc/samtools-flagstat.html) and [https://www.htslib.org/doc/samtools-idxstats.html](https://www.htslib.org/doc/samtools-idxstats.html). 
 
 ## 2.5: Coverage plots
 
@@ -319,7 +294,7 @@ Now let’s view the coverage plot by clicking on the hyperlink (blue and underl
 
 The x-axis represents the genome position, whilst the y-axis represents the Depth of Coverage at each genome position. 
 
-**NB:** The reference sequence filename is sars2_ref.fasta, but the actual name of the sequence itself is [NC_045512.2](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2) in the fasta file, you can open up the file yourself to check this if you want (head –n1 sars2_ref.fasta).
+**NB:** The reference sequence filename is sars2_ref.fasta, but the actual name of the sequence itself is [NC_045512.2](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2) in the fasta file, you can open up the file yourself to check this if you want!
 
 **Close the weeSAM/Firefox windows before proceeding!**
 
@@ -329,17 +304,10 @@ A common issue here is due to the fact that we have launched firefox from the te
 
 # 3: Alignment on your own
 
-You now need to use BWA to align the reads for Sample2 (S2_R1.fq and S2_R2.fq) to the sars2_ref.fasta reference sequence. So lets move into the correct folder:
+Your task now is to apply what you have learned to Sample 2. Use BWA to align the reads for Sample2 to the sars2_ref.fasta reference sequence, convert the SAM to a BAM, index it, calcuclate the basic read stats and generate a coverage plot.
 
-```
-cd ../Sample2
-```
 
-**You need to work out the commands yourself based on the previous commands for the Sample1**. Here is a reminder of the commands you used for Sample1 (S1) which you will need to adapt:
-
-```
-prinseq-lite.pl -stats_info -stats_len -fastq S1_R1.fq -fastq2 S1_R2.fq
-```
+**You need to work out the commands yourself based on the previous commands for the Sample1**. Hint - first you will need to move to the correct folder! Here is a reminder of the commands you used for Sample1 (S1) which you will need to **adapt**:
 
 ```
 bwa mem -t 4 ../Refs/sars2_ref.fasta S1_R1.fq S1_R2.fq > S1.sam
@@ -373,87 +341,9 @@ weeSAM --bam S1.bam --html S1
 **Question 8** – how many reads are unmapped? what is the average coverage and breadth of coverage?
 ***
 
-# Do not progress to consensus calling until after the consensus calling lecture - if you are looking for more stuff to do - jump to section 6: Extra Data
+# 4: Extra Data
 
-# 4: Consensus calling
-
-We have now aigned each of our samples (S1 and S2) to the Wuhan-Hu-1 (NC_045512.2) SARS-CoV-2 reference genom sequence, and now we want to call a consensus sequence.
-
-What is a consensus sequence? At each genome position in the SAM/BAM alignment file, call the most frequent nucleotide (or insertion/deletion) observed in all of the reads aligned at the position. 
-
-In this practical, we will use a tool called [iVar](https://andersen-lab.github.io/ivar/html/manualpage.html) to call the consensus sequence, which utilises the [mpileup](http://www.htslib.org/doc/samtools-mpileup.html) function of samtools.
-
-**NB:** the server we are using (alpha2) has a conflict/error when running ivar by default, to resolve it please **COPY** and **PASTE** the below command into your terminal window and hit the enter button:
-
-```
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/software/htslib-v1.12/lib
-```
-
-First, let work on Sample1, so we need to change directory (cd) into the correct folder:
-
-```
-cd ~/Richard/Sample1
-```
-
-And now call the consenus for the sample using iVar:
-
-```
-samtools mpileup -aa -A -d 0 -Q 0 S1.bam | ivar consensus -p S1 -t 0.4
-```
-
-Breaking this command down, there are two parts:
-
-1. samtools [mpileup](http://www.htslib.org/doc/samtools-mpileup.html) which essentially outputs the base and indel counts for each genome position
-	* **-aa** = output data for absolutely all positions (even zero coverage ones)
-	* **-A** = count orphan reads (reads whose pair did not map)
-	* **-d 0** = override the maximum depth (default is 8000 which is typically too low for viruses)
-	* **-Q 0** = minimum base quality, 0 essentially means all the data
-2. ivar [consensus](https://andersen-lab.github.io/ivar/html/manualpage.html) - this calls the consensus - the output of the samtools mpileup command is piped `|` directly into ivar
-	* -p S1 = prefix with which to name the output file
-	* -t 0.4 = the minimum frequency threshold that a base must match to be used in calling the consensus base at a position. In this case, an ambiguity code will be used if more than one base is > 40% (0.4). See [iVar manual](https://andersen-lab.github.io/ivar/html/manualpage.html)
-
-By default, iVar consensus uses a minimum depth (-m) of 10 and a minimum base quality (-q) of 20 to call the consensus; these defaults can be changed by using the appropriate arguments. If a genome position has a depth less than the minimum, an 'N' base will be used in the consensus sequence by default.
-
-iVar will output some basic statistics to the screen such as:
-
-```
-#DO NOT ENTER THIS - IT IS AN EXAMPLE OF AN IVAR OUTPUT:
-Minimum Quality: 20
-Threshold: 0.4
-Minimum depth: 10
-Regions with depth less than minimum depth covered by: N
-[mpileup] 1 samples in 1 input files
-[mpileup] Max depth set to maximum value (2147483647)
-Reference length: 29903
-Positions with 0 depth: 0
-Positions with depth below 10: 4
-```
-
-and when it has finished (and your prompt returns) you should see our consensus sequence (S1.fa) in the directory:
-
-```
-ls
-```
-
-which you can view the sequence via the command line (we will be covering variants later):
-
-```
-more S1.fa 
-```
-
-***
-### Questions
-
-**Question 9** - try copying and pasting the created consensus sequence into [NCBI Blast](https://blast.ncbi.nlm.nih.gov/Blast.cgi) - what is the closest sample on GenBank?
-***
-
-## 4.1: Consensus calling on your own
-
-You now need to call the consensus sequence for Sample2, so you'll need to change directory to the appropriate folder and adapt the ivar command for the Sample2 files.
-
-# 5: Extra Data
-
-If you are looking for something extra to do, there are additional data sets located in the folder:
+If you are looking for something extra to do, there are lots of additional data sets located in the below folder:
 
 ### ~/Richard/Ebola/
 
@@ -473,14 +363,3 @@ This is a simulated Dengue virus sample, but we do not know what genotype it is 
 
 This is a mystery sample, combine all the given references sequences in the folder into one file using the “cat” command, align the reads to that combined reference (after indexing) and then determine what the virus in the sample is.
 
-# 6: Assembly Visualisation with Tablet
-
-[Tablet](https://ics.hutton.ac.uk/tablet/) is a tool for the visualisation of next generation sequence assemblies and alignments. It goes beyond simple coverage plots, and allows you to scroll across the genome, zoom into errors of interests, highlight mutations to the reference, and investigate the assembly.
-
-Tablet requires three files:
-
-1.	A bam file, e.g. 1a.bam
-2.	A bam index file, e.g. 1a.bam.bai
-3.	Optional: A reference sequence file: e.g. sars2\_ref.fasta
-
-**Tablet demonstration**
