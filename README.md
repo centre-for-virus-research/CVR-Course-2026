@@ -28,14 +28,15 @@ TinyURL: [https://tinyurl.com/VBIO-2026](https://tinyurl.com/VBIO-2026)
 1. [Basic Linux](docs/Basic_Linux_26.md)
 2. [Bash file editing & text processing](docs/TextProcessingAndBashScripting/TextProcessing.md)
 3. [Read cleaning & QC](docs/ReadCleaning.md)
-4. [Reference alignment](docs/RefAlign.md)
-5. [De novo assembly](docs/DeNovoPracticals.md)
-6. [De novo quality assessment](docs/QualityAssessment.md)
-7. [Metagenomics and virus discovery](docs/Metagenomics.md)
-8. [K-mer based metagenomics](docs/KmerMetagenomics.md)
-9. [Introduction to MSA and phylogenetics](docs/Phylogenetics.md)
-10. Genomic - Talk & Tour - and example Nanopore loading
-11. Nanopore Analysis
-12. ViralRecon
-13. [Bash conditions & loops](docs/TextProcessingAndBashScripting/BashLoops.md)
-14. Group session - build your own pipeline
+4. [Reference alignment and Coverage Plots](docs/RefAlign.md)
+5. [Consensus and Variant Calling](docs/Consensus.md)
+6. [De novo assembly](docs/DeNovoPracticals.md)
+7. [De novo quality assessment](docs/QualityAssessment.md)
+8. [Metagenomics and virus discovery](docs/Metagenomics.md)
+9. [K-mer based metagenomics](docs/KmerMetagenomics.md)
+10. [Introduction to MSA and phylogenetics](docs/Phylogenetics.md)
+11. Genomic - Talk & Tour - and example Nanopore loading
+12. Nanopore Analysis
+13. ViralRecon
+14. [Bash conditions & loops](docs/TextProcessingAndBashScripting/BashLoops.md)
+15. Group session - build your own pipeline
