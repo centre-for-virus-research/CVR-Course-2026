@@ -16,7 +16,7 @@ E-mail: Richard.Orton@glasgow.ac.uk
 
 ## Overview
 
-We have now aligned each of our samples (S1 and S2) to the Wuhan-Hu-1 (NC_045512.2) SARS-CoV-2 reference genome sequence, and now we want to call a consensus sequence.
+We have now aligned each of our samples (S1 and S2) to the Wuhan-Hu-1 (NC_045512.2) SARS-CoV-2 reference genome sequence to create BAM files, and now we want to call a consensus sequence.
 
 What is a consensus sequence? At each genome position in the SAM/BAM alignment file, call the most frequent nucleotide (or insertion/deletion) observed in all of the reads aligned at the position. 
 
@@ -96,7 +96,7 @@ https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/file-formats/annota
 The command to call variants with iVar is very similar to the consensus command:
 
 ```
-samtools mpileup -aa -A -d 0 -Q 0 S1.bam | ivar variants -r ../Refs/sars2_ref.fasta -p S1_variants
+samtools mpileup -aa -A -d 0 -Q 0 -f ../Refs/sars2_ref.fasta S1.bam | ivar variants -r ../Refs/sars2_ref.fasta -p S1_variants
 ```
 
 Breaking this command down, there are two parts:
@@ -122,6 +122,8 @@ and now view the file:
 cat S1_variants.tsv
 ```
 
+You should notice there are lots of NA's, for example in the REF_CODON, REF_AA, ALT_CODON and ALT_AA columns. This is becuase ivar does not know anything about where the ORFs start and end so can not determine codon information to annotatet mutations. ALT means ALTernate base e.g. a non-reference mutation base.
+
 ***
 **Question 1** - how many variants/mutations are in the S1_variants file? Hint - each variant is on its own line
 ***
@@ -131,33 +133,33 @@ By default, iVar will apply a minimum variant frequency threshold of 0.03 (3%), 
 First, lets increase the frequency to 0.5 (50%):
 
 ```
-samtools mpileup -aa -A -d 0 -Q 0 S1.bam | ivar variants -r ../Refs/sars2_ref.fasta -p S1_variants50 -t 0.5
+samtools mpileup -aa -A -d 0 -Q 0 -f ../Refs/sars2_ref.fasta S1.bam | ivar variants -r ../Refs/sars2_ref.fasta -p S1_variants50 -t 0.5
 ```
 
 ***
-**Question 2** - how many variants/mutations are in the new S1_variants50.tsv file? Is it more or less than before? Why?
+**Question 2** - how many variants/mutations are in the new S1_variants50.tsv file now? Is it more or less than before? Why?
 ***
 
 Next, lets decrease the frequency to 0.005 (0.5%):
 
 ```
-samtools mpileup -aa -A -d 0 -Q 0 S1.bam | ivar variants -r ../Refs/sars2_ref.fasta -p S1_variants05 -t 0.005
+samtools mpileup -aa -A -d 0 -Q 0 -f ../Refs/sars2_ref.fasta S1.bam | ivar variants -r ../Refs/sars2_ref.fasta -p S1_variants05 -t 0.005
 ```
 
 ***
-**Question 2** - how many variants/mutations are in the new S1_variants05 file? Is it more or less than before? Why?
+**Question 3** - how many variants/mutations are in the new S1_variants05 file now? Is it more or less than before? Why?
 ***
 
 It is up to us to determine what the minimum frequency of the variant calling should be - there is no blanket rule. I previously worked on charcterising RT-PCR and NGS errors in next generation sequencing and we came up with a 0.5% threshold where we would not trust anything below this. BUT - this is highly dependent on the sample processing (RT, PCR etc) and sequencing error rate. The lower you go, the more uncertain the results without further validation - e.g. replicates, lab validation.
 
-# 2: Variant annotation with iVar
+# 3: Variant annotation with iVar
 
 In order to annotate the functional affect of a mutation (e.g. if it causes an amino acid change) iVar needs a GFF3 file which essentially descibes where each ORF on the genome starts and ends, so that iVar can determine the codon position of each mutate. We can run iVar variants with the GFF3 file:
 
 ```
 samtools mpileup -aa -A -d 0 -Q 0 -f ../Refs/sars2_ref.fasta S1.bam | ivar variants -r ../Refs/sars2_ref.fasta -p S1_variants_anno -t 0.5 -g ../Refs/sars2_ref.gff3 
 ```
-**NB:** note the add gff3 file supplied via the -g argument
+**NB:** note the new gff3 file supplied via the -g argument
 
 If we list the directory contents we should see our new S1_variants_anno.tsv file:
 
@@ -165,17 +167,31 @@ If we list the directory contents we should see our new S1_variants_anno.tsv fil
 ls
 ```
 
-If we view the file we should now see that we have data in the AA and CODON columns for REF and ALT. Note - mutations in non-coding regions 
+If we view the file we should now see that we have data in the AA and CODON columns for REF and ALT. Note - mutations in non-coding regions will still have NA's as they are not coding.
 
 ```
 S1_variants_anno.tsv
 ```
 
+***
+**Question 4** - how many variants/mutations result in an amino acid change?
+***
+
 # 4: Consensus and Variant Calling on your own
 
-You now need to apply what you have to Sample2. First you should change directory to the sample's folder, and then adapt the previous commands to work with the new sample i.e. you will need to change the BAM and output file names, but keep the reference file names the same.
+You now need to apply what you have learnt to Sample2. First you should change directory to the sample's folder, and then adapt the previous commands to work with the new sample i.e. you will need to change the BAM and output file names, but keep the reference file names the same. A reminder of all the commands is:
 
-# 5: Extra section - Variant Calling with LoFreq and SnpEff
+```
+samtools mpileup -aa -A -d 0 -Q 0 S1.bam | ivar consensus -p S1 -t 0.4
+
+samtools mpileup -aa -A -d 0 -Q 0 -f ../Refs/sars2_ref.fasta S1.bam | ivar variants -r ../Refs/sars2_ref.fasta -p S1_variants
+
+samtools mpileup -aa -A -d 0 -Q 0 -f ../Refs/sars2_ref.fasta S1.bam | ivar variants -r ../Refs/sars2_ref.fasta -p S1_variants_anno -t 0.5 -g ../Refs/sars2_ref.gff3 
+
+```
+
+
+# 5: Extra section - Variant Calling with LoFreq
 
 Now we will be using a slightly more advanced variant caller called [LoFreq](https://github.com/CSB5/lofreq) to call the low (and high) frequency variants present in the sample BAM file. LoFreq uses numerous statistical methods and tests to attempt to distinguish true low frequency viral variants from sequence errors. It requires a sample BAM file and corresponding reference sequence that it was aligned to, and creates a [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) file as an output.
 
