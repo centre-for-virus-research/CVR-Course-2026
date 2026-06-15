@@ -135,7 +135,7 @@ samtools mpileup -aa -A -d 0 -Q 0 S1.bam | ivar variants -r ../Refs/sars2_ref.fa
 ```
 
 ***
-**Question 2** - how many variants/mutations are in this file? Is it more or less than before? Why?
+**Question 2** - how many variants/mutations are in the new S1_variants50.tsv file? Is it more or less than before? Why?
 ***
 
 Next, lets decrease the frequency to 0.005 (0.5%):
@@ -145,17 +145,39 @@ samtools mpileup -aa -A -d 0 -Q 0 S1.bam | ivar variants -r ../Refs/sars2_ref.fa
 ```
 
 ***
-**Question 2** - how many variants/mutations are in this file? Is it more or less than before? Why?
+**Question 2** - how many variants/mutations are in the new S1_variants05 file? Is it more or less than before? Why?
 ***
 
-It is up to us to determine what the minimum frequency of a variant should be - there is no blanket rule. I previously worked on charcterising RT-PCR and NGS errors in next generation sequencing and we came up with a 0.05% threshold where we would not trust anything below this. BUT - this is highly dependent on the sample processing (RT, PCR etc) and sequencing error rate. The lower you go, the more uncertain the results without further validation - e.g. replicates, lab validation.
+It is up to us to determine what the minimum frequency of the variant calling should be - there is no blanket rule. I previously worked on charcterising RT-PCR and NGS errors in next generation sequencing and we came up with a 0.5% threshold where we would not trust anything below this. BUT - this is highly dependent on the sample processing (RT, PCR etc) and sequencing error rate. The lower you go, the more uncertain the results without further validation - e.g. replicates, lab validation.
 
-2.1
+# 2: Variant annotation with iVar
 
+In order to annotate the functional affect of a mutation (e.g. if it causes an amino acid change) iVar needs a GFF3 file which essentially descibes where each ORF on the genome starts and ends, so that iVar can determine the codon position of each mutate. We can run iVar variants with the GFF3 file:
 
+```
+samtools mpileup -aa -A -d 0 -Q 0 -f ../Refs/sars2_ref.fasta S1.bam | ivar variants -r ../Refs/sars2_ref.fasta -p S1_variants_anno -t 0.5 -g ../Refs/sars2_ref.gff3 
+```
+**NB:** note the add gff3 file supplied via the -g argument
 
+If we list the directory contents we should see our new S1_variants_anno.tsv file:
 
-But here we will be using a slightly more advanced variant caller called [LoFreq](https://github.com/CSB5/lofreq) to call the low (and high) frequency variants present in the sample BAM file. LoFreq uses numerous statistical methods and tests to attempt to distinguish true low frequency viral variants from sequence errors. It requires a sample BAM file and corresponding reference sequence that it was aligned to, and creates a [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) file as an output.
+```
+ls
+```
+
+If we view the file we should now see that we have data in the AA and CODON columns for REF and ALT. Note - mutations in non-coding regions 
+
+```
+S1_variants_anno.tsv
+```
+
+# 4: Consensus and Variant Calling on your own
+
+You now need to apply what you have to Sample2. First you should change directory to the sample's folder, and then adapt the previous commands to work with the new sample i.e. you will need to change the BAM and output file names, but keep the reference file names the same.
+
+# 5: Extra section - Variant Calling with LoFreq and SnpEff
+
+Now we will be using a slightly more advanced variant caller called [LoFreq](https://github.com/CSB5/lofreq) to call the low (and high) frequency variants present in the sample BAM file. LoFreq uses numerous statistical methods and tests to attempt to distinguish true low frequency viral variants from sequence errors. It requires a sample BAM file and corresponding reference sequence that it was aligned to, and creates a [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) file as an output.
 
 First, lets make sure we are in the correct folder to work on Sample1:
 
@@ -201,53 +223,12 @@ The outputted VCF file consists of the following fields:
 ***
 ### Questions
 
-**Question 10** – how many consenus level (i.e AF > 0.5) and subconsenus (i.e. AF < 0.5) are there in the sample? what genome positions are the sub-consensus mutations?
+**Question** – how many consenus level (i.e AF > 0.5) and subconsenus (i.e. AF < 0.5) are there in the sample? what genome positions are the sub-consensus mutations?
 ***
 
-LoFreq simply calls the reference position and mutation present, it does not characterise the effect of the mutation in terms of whether the mutation is synonymous or nonsynonymous etc. To do that we will use a program called [SnpEff](https://github.com/pcingola/SnpEff) which is run on LoFreq’s outputted VCF file and creates a new annotated VCF file:
+Now you task is to run LoFreq to characterise the mutations in Sample 2?
 
-```
-/software/snpEff/scripts/snpEff -ud 0 NC_045512.2 S1.vcf > S1_snpeff.vcf
-```
-
-Breaking this command down:
-
-* **/software/snpEff/scripts/snpEff**: the name (and location) of the program we are using
-* **-ud 0**: Set upstream downstream interval length to 0
-* **NC_045512.2**: the reference name
-* **S1.vcf**: the input vcf file name
-* **S1_snpeff.vcf**: the annotated output vcf file name
-
-Setting -ud 0 stops SnpEff from characterising mutations located near (but not within) a gene as being located in their UTRs. Typically viral genomes are compact and genes are separated by few bases, in such cases a mutation in one gene could also be characterised as being in the UTR region of a neighbouring gene (as SnpEff was initially built for human analyses) – try running SnpEff without the -ud 0 and compare the results if you want, you should see multiple annotations for each mutation.
-
-Now we can view the annotated vcf file created by SnpEff:
-
-```
-more S1_snpeff.vcf
-```
-
-The mutations will now have annotations added at the end of the Info field (the last field, the 8th field), e.g in Sample1 you should see this nonsynonymous (missense) mutation at position 23,403 which corresponds to D614G a Asp to Gly mutation at codon 614 in the Spike gene of SARS2:
-
-```
-DO NOT ENTER THIS - IT IS AN EXAMPLE OF A MUTATION IN THE VCF!!!
-DP=1286;AF=0.995334;SB=0;DP4=1,1,628,652;ANN=G|missense_variant|MODERATE|S|GU280_gp02|transcript|GU280_gp02|protein_coding|1/1|c.1841A>G|p.Asp614Gly|1841/3822|1841/3822|614/1273||
-```
-
-The A to G mutation at genome position 23403 corresponds to position 1841 (out of 3822) within the Spike (S) gene which corresponds to codon 614 (out of 1273) within Spike(S)
-
-**NB:** SnpEff includes many pre-built databases (SARS-CoV-2 NC_045512.2 being one of them) – for different viruses you may need to build the SnpEff database first by downloading and processing a GenBank file, see the documentation [here](https://pcingola.github.io/SnpEff/)
-
-
-## 2.1: Variant calling on your own
-
-Now you task is to run LoFreq and then SnpEff to characterise the mutations in Sample 2?
-
-***
-### Questions
-**Question 11** - how many consensus level non-synonymous mutations are there in Sample?
-***
-
-# 3: Extra Data
+# 5.1: Extra Data
 
 If you are looking for something extra to do, there are additional data sets located in the folder:
 
