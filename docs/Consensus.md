@@ -256,7 +256,9 @@ The outputted VCF file consists of the following fields:
 **Question** – how many consenus level (i.e AF > 0.5) and subconsenus (i.e. AF < 0.5) are there in the sample? what genome positions are the sub-consensus mutations?
 ***
 
-Now you task is to run LoFreq to characterise the mutations in Sample 2?
+# 5.1: Extra section - Variant Calling with LoFreq
+
+Now your task is to run LoFreq to characterise the mutations in Sample 2
 
 # 5.1: Extra Data
 
