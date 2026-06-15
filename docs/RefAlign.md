@@ -229,7 +229,9 @@ For small RNA viruses, secondary and supplementary alignments tend to be rare, b
 
 ### Samtools Samtools Samtools
 
-Samtools has so many useful functions, and we are just scratching the surface here. Two of the functions I use the most are **flagstat** and **idxstats**, if you have time at the end of the session you could explore these funcaitons yourself. The doc pages are here: [https://www.htslib.org/doc/samtools-flagstat.html](https://www.htslib.org/doc/samtools-flagstat.html) and [https://www.htslib.org/doc/samtools-idxstats.html](https://www.htslib.org/doc/samtools-idxstats.html). 
+Samtools has so many useful functions, and we are just scratching the surface here. Two of the functions I use the most are **flagstat** and **idxstats**, if you have time at the end of the session you could explore these funcaitons yourself. The doc pages are here: 
+* [https://www.htslib.org/doc/samtools-flagstat.html](https://www.htslib.org/doc/samtools-flagstat.html)
+* [https://www.htslib.org/doc/samtools-idxstats.html](https://www.htslib.org/doc/samtools-idxstats.html). 
 
 ## 2.5: Coverage plots
 
