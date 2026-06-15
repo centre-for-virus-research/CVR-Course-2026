@@ -109,6 +109,7 @@ Breaking this command down, there are two parts:
 2. ivar [variants](https://andersen-lab.github.io/ivar/html/manualpage.html) - this calls the variants - the output of the samtools mpileup command is piped `|` directly into ivar
 	* -p S1_variants = prefix with which to name the output file
 	* -r ../Refs/sars2_ref.fasta = the reference file name, iVar needs it this time
+	* Note, by defauly ivar variants applies a quality filter of q20  (can vary via -q), and a minimum read depth of 1 (can vary via -m), when reporting variants
 
 If you list the directory contents you should see our new output file S1_variants.tsv (a tab separated text file).
 
@@ -127,6 +128,20 @@ You should notice there are lots of NA's, for example in the REF_CODON, REF_AA, 
 ***
 **Question 1** - how many variants/mutations are in the S1_variants file? Hint - each variant is on its own line
 ***
+
+To make the file a bit more readable on the command line, we can use the cut command to select a smaller number of columns to view:
+
+```
+cut -f1-5,8,11 S1_variants.tsv
+```
+
+* column 1 = REGION = the name of the reference sequence
+* column 2 = POS = the genome position
+* column 3 = REF = the reference base at the genome position
+* column 4 = ALT = the alternate (mutation) base
+* column 5 = REF_DP = the depth (number of reads) that have the reference base
+* column 8 = ALT_DP = the depth (number of reads) that have the alternate mutation base
+* column 11 = ALT_FREQ = the frequency of the alternate mutation base
 
 By default, iVar will apply a minimum variant frequency threshold of 0.03 (3%), any variant below this will not be reported by default. However, we can vary this with the -t argument. 
 
@@ -170,7 +185,7 @@ ls
 If we view the file we should now see that we have data in the AA and CODON columns for REF and ALT. Note - mutations in non-coding regions will still have NA's as they are not coding.
 
 ```
-S1_variants_anno.tsv
+cat S1_variants_anno.tsv
 ```
 
 ***
