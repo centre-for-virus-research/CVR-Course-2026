@@ -12,7 +12,7 @@ To introduce multiple sequence alignment and the inference of evolutionary histo
 
 **Task**
 
-To generate the phylogenetic tree in Figure 1A of the paper [Iyer et al. 2017, Resistance to type 1 interferons is a major determinant of HIV-1 transmission fitness. PNAS 114(4):E590-E599](https://www.pnas.org/doi/10.1073/pnas.1620144114#fig01).  
+To construct the phylogenetic tree in Figure 1A of the paper [Iyer et al. 2017, Resistance to type 1 interferons is a major determinant of HIV-1 transmission fitness. PNAS 114(4):E590-E599](https://www.pnas.org/doi/10.1073/pnas.1620144114#fig01).  
 
 To complete your analysis the key stages to consider are 1/ sequence alignment, 2/ the tree inference method and model choice, 3/ tree visualization and 4/ checking the reliability of clustering with bootstrapping.
 
