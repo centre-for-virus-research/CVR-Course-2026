@@ -6,7 +6,7 @@
 
 In this session, we will work with two paired-end FASTQ samples and perform basic quality control of the sequencing reads. Step-by-step instructions will be provided for processing the first sample, after which you will apply the same workflow independently to analyse the second sample.
  
-We have two samples:
+We have two RNA-Seq samples:
 
 * ERR13712192
 * ERR13712193
