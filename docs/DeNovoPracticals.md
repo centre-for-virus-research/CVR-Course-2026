@@ -95,7 +95,7 @@ This will convert fastq reads to fasta sequences and save them in a single file 
 
 Let us run the assembly.
 ```
-idba_ud --mink=21 --maxk=81 step=10 -r reads.fa -o . --num_threads=4
+idba_ud --mink=21 --maxk=81 --step=10 -r reads.fa -o . --num_threads=4
 ```
 
 
