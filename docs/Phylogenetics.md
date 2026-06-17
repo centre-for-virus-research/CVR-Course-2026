@@ -18,11 +18,13 @@ To complete your analysis the key stages to consider are 1/ sequence alignment, 
 
 **Data**
 
-The data set from the Iyer paper is quite large (available at /home4/VBG_data/Phylogenetics on Alpha) so would take some time to align. To speed things up use the pre-processed fasta file with fewer sequences (95) from the linked patients CH595 and CH455 that were presented in their figure 1. **Copy files to your own directory.**
+The data set from the Iyer paper is quite large (available at /home4/VBG_data/Phylogenetics on Alpha) so would take some time to align. To speed things up use the pre-processed fasta file Iyer-etal-2017-95.fst with fewer sequences (95) from the linked patients CH595 and CH455 that were presented in their figure 1. The file data-acquistion-info.txt explains how this file was derived from the larger sequence set of 666 sequences. 
+
+**Copy files to your own directory.**
 
 **Software**
 
-Use the alignment software Mafft or Muscle: type 'mafft filename.fst > filename-mafft-aln' or ‘muscle -align filename.fst -output filename-muscle.aln’ on the command line on the bioinformatics server Alpha2 <alpha2.cvr.gla.ac.uk. The authors used older software, CLUSTALW (commmand ‘clustalw2’ on the command line), have a go using that too.  
+Use the alignment software Mafft: type 'mafft filename.fst > filename-mafft-aln'on the command line on the bioinformatics server Alpha2 <alpha2.cvr.gla.ac.uk. The authors used older software, CLUSTALW (commmand ‘clustalw2’ on the command line), have a go using that too.  
 
 To infer a phylogenetic tree try using the popular software IQ-TREE (command: 'iqtree2 -s filename.ph -m HKY -threads-max 1'). Reflect on the lecture at the beginning of the class to choose appropriate parameters. Note, the 'threads' command is important to prevent the program using multiple threads on the server. What are the different options doing?
 
@@ -38,7 +40,7 @@ Once you’ve generated some trees answer the questions below:
 
 **Question 2**. What can you infer from your evolutionary tree about the relationship of virus from the two individuals: CH596 and CH455? What two properties of the phylogenetic tree support this relationship?
 
-**Question 3**. Iyer et al. used the methods: *Nucleotide sequences were aligned using CLUSTALW, with ambiguous regions removed. Maximum likelihood trees with bootstrap support (1,000 replicates) were constructed using PhyML.*  Does this change the results in any meaningful way? Does using a different alignment method matter, e.g., MUSCLE, MAFFT versus CLUSTAL versions? 
+**Question 3**. Iyer et al. used the methods: *Nucleotide sequences were aligned using CLUSTALW, with ambiguous regions removed. Maximum likelihood trees with bootstrap support (1,000 replicates) were constructed using PhyML.*  Does this change the results in any meaningful way? Does using a different alignment method matter, e.g., MAFFT versus CLUSTALW?   
 
 **Question 4**. What is the main differences between the maximum likelihood methods and the distance-method neighbor joining, e.g., available in CLUSTALW or SeaView? 
 
@@ -48,6 +50,9 @@ Once you’ve generated some trees answer the questions below:
 
 **Question 7**. Briefly explaining what bootstrapping is doing. How does it contribute to the analysis? 
 
-**Question 8**. Bonus question! Why should you be concerned about recombination when doing a phylogenetic analysis with virus data? Make a suggestion for some software to use.  
+***Bonus questions!***
 
+**Question 8**. Have a look at the file HIV1-subtypes-AND-3-CRFs.fst. These sequences represent the diversity in the 'main' group M of HIV-1, responsible for the HIV/AIDS pandemic, which is split into 'subtypes' A - L and circulating recombinant form 'CRF' lineages (https://www.hiv.lanl.gov/components/sequence/HIV/crfdb/crfs.comp). Why should you be concerned about recombination when doing a phylogenetic analysis with virus data? Hint, you can explore inferring trees from sub-regions of the alignment using the 'extractalign' command. 
+
+**Question 9**. Have a look at the file HIV1-groups-AND-ape-SIVs.fst. What is this telling us about the origins of HIV-1?
 
