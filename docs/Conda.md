@@ -440,15 +440,7 @@ ls
 
 ## Nanopore environment
 
-For the upcoming nanopore practial we need a nanopore environment with a couple of extra tools.
-
-First lets exit our **test-env** environment:
-
-```
-conda deactivate
-```
-
-and now lets create a new environment called nanopore-env, this time we need to specify a certain version of python to use as one of the nanopore tools works best with that:
+For the upcoming nanopore practial we need a nanopore environment with a couple of extra tools, so lets create a new environment called nanopore-env, this time we need to specify a certain version of python to use as one of the nanopore tools works best with that:
 
 ```
 mamba create -n nanopore-env python=3.12
