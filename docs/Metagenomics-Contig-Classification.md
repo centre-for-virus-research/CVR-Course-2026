@@ -45,7 +45,7 @@ Now search the NR database using the Diamond BlastX program. This search will ta
 
 
 ```
-diamond blastx --db /db/diamond/nr   -b14 -p 10 -c 2 -q SpadesOut/contigs.fasta --outfmt 6 qseqid sseqid pident nident length mismatch gapopen qstart qend sstart send evalue bitscore stitle sscinames staxids skingdoms sskingdoms sphylums salltitles -k 1 --out SRR30229922_diamondNR.blasttab
+diamond blastx --db /db/diamond/nr   -b14 -p 4 -c 2 -q SpadesOut/contigs.fasta --outfmt 6 qseqid sseqid pident nident length mismatch gapopen qstart qend sstart send evalue bitscore stitle sscinames staxids skingdoms sskingdoms sphylums salltitles -k 1 --out SRR30229922_diamondNR.blasttab
 ```
 
 
