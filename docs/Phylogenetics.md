@@ -26,7 +26,7 @@ The data set from the Iyer paper is quite large (available at /home4/VBG_data/Ph
 
 Use the alignment software Mafft: type 'mafft filename.fst > filename-mafft-aln'on the command line on the bioinformatics server Alpha2 <alpha2.cvr.gla.ac.uk. The authors used older software, CLUSTALW (commmand ‘clustalw2’ on the command line), have a go using that too.  
 
-To infer a phylogenetic tree try using the popular software IQ-TREE (command: 'iqtree2 -s filename.ph -m HKY -threads-max 1'). Reflect on the lecture at the beginning of the class to choose appropriate parameters. Note, the 'threads' command is important to prevent the program using multiple threads on the server. What are the different options doing?
+To infer a phylogenetic tree try using the popular software IQ-TREE (command: 'iqtree2 -s filename.ph -m HKY --threads-max 1'). Reflect on the lecture at the beginning of the class to choose appropriate parameters. Note, the 'threads' command is important to prevent the program using multiple threads on the server. What are the different options doing?
 
 Use FigTree (command: ‘figtree’) for visualizing your phylogenetic trees and highlighting specific sequence names. 
 
