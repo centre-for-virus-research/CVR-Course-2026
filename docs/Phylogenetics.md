@@ -18,9 +18,7 @@ To complete your analysis the key stages to consider are 1/ sequence alignment, 
 
 **Data**
 
-The data set from the Iyer paper is quite large (available at /home4/VBG_data/Phylogenetics on Alpha) so would take some time to align. To speed things up use the pre-processed fasta file Iyer-etal-2017-95.fst with fewer sequences (95) from the linked patients CH595 and CH455 that were presented in their figure 1. The file data-acquistion-info.txt explains how this file was derived from the larger sequence set of 666 sequences. 
-
-**Copy files to your own directory.**
+The data set from the Iyer paper is quite large (available at /home4/VBG_data/Phylogenetics on Alpha) so would take some time to align. To speed things up use the pre-processed fasta file Iyer-etal-2017-95.fst with fewer sequences (95) from the linked patients CH595 and CH455 that were presented in their figure 1. The file data-acquistion-info.txt explains how this file was derived from the larger sequence set of 666 sequences. **Copy files to your own directory.**
 
 **Software**
 
