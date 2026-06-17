@@ -52,6 +52,6 @@ Once you’ve generated some trees answer the questions below:
 
 ***Bonus questions!***
 
-**Question 8**. Have a look at the file HIV1-subtypes-AND-3-CRFs.fst. These sequences represent the diversity in the 'main' group M of HIV-1, responsible for the HIV/AIDS pandemic, which is split into 'subtypes' A - L and circulating recombinant form 'CRF' lineages (https://www.hiv.lanl.gov/components/sequence/HIV/crfdb/crfs.comp). Why should you be concerned about recombination when doing a phylogenetic analysis with virus data? Hint, you can explore inferring trees from sub-regions of the alignment using the 'extractalign' command. 
+**Question 8**. Have a look at the file HIV1-subtypes-AND-3-CRFs.fst (available at /home4/VBG_data/Phylogenetics). These sequences represent the diversity in the 'main' group M of HIV-1, responsible for the HIV/AIDS pandemic, which is split into 'subtypes' A - L and circulating recombinant form 'CRF' lineages (https://www.hiv.lanl.gov/components/sequence/HIV/crfdb/crfs.comp). Why should you be concerned about recombination when doing a phylogenetic analysis with virus data? Hint, you can explore inferring trees from sub-regions of the alignment using the 'extractalign' command. 
 
 **Question 9**. Have a look at the file HIV1-groups-AND-ape-SIVs.fst. What is this telling us about the origins of HIV-1?
