@@ -36,20 +36,29 @@ Once you’ve generated some trees answer the questions below:
 
 **Question 1**. Why is it important to be confident the data you're analysing is homologous before starting a phylogenetic analysis? Do the sequences being homologous guarantee a meaningful analysis? 
 
+
 **Question 2**. What can you infer from your evolutionary tree about the relationship of virus from the two individuals: CH596 and CH455? What two properties of the phylogenetic tree support this relationship?
+
 
 **Question 3**. Iyer et al. used the methods: *Nucleotide sequences were aligned using CLUSTALW, with ambiguous regions removed. Maximum likelihood trees with bootstrap support (1,000 replicates) were constructed using PhyML.*  Does this change the results in any meaningful way? Does using a different alignment method matter, e.g., MAFFT versus CLUSTALW?   
 
+
 **Question 4**. What is the main differences between the maximum likelihood methods and the distance-method neighbor joining, e.g., available in CLUSTALW or SeaView? 
+
 
 **Question 5**. Why is PhyML, despite being a maximum likelihood method, relatively quick? Why is the the software RAxML or IQ-TREE more appropriate to use? 
 
+
 **Question 6**. Why does the substitution model used matter? What does the software jModelTest used in the Iyer paper do?
+
 
 **Question 7**. Briefly explaining what bootstrapping is doing. How does it contribute to the analysis? 
 
+
 ***Bonus questions!***
 
-**Question 8**. Have a look at the file HIV1-subtypes-AND-3-CRFs.fst (available at /home4/VBG_data/Phylogenetics). These sequences represent the diversity in the 'main' group M of HIV-1, responsible for the HIV/AIDS pandemic, which is split into 'subtypes' A - L and circulating recombinant form 'CRF' lineages (https://www.hiv.lanl.gov/components/sequence/HIV/crfdb/crfs.comp). Why should you be concerned about recombination when doing a phylogenetic analysis with virus data? Hint, you can explore inferring trees from sub-regions of the alignment using the 'extractalign' command. 
 
-**Question 9**. Have a look at the file HIV1-groups-AND-ape-SIVs.fst. What is this telling us about the origins of HIV-1?
+**Question 8**. Have a look at the file HIV1-subtypes-AND-3-CRFs.fst (available at /home4/VBG_data/Phylogenetics). These sequences represent the diversity in the 'main' group M of HIV-1, responsible for the HIV/AIDS pandemic, which is split into 'subtypes' A - L and circulating recombinant form 'CRF' lineages (https://www.hiv.lanl.gov/components/sequence/HIV/crfdb/crfs.comp). Note, no need to align this file. Why should you be concerned about recombination when doing a phylogenetic analysis with virus data? Hint, you can explore inferring trees from sub-regions of the alignment using the 'extractalign' command. 
+
+
+**Question 9**. Have a look at the file HIV1-groups-AND-ape-SIVs.fst. Note, no need to align this file. What is this telling us about the origins of HIV-1?
