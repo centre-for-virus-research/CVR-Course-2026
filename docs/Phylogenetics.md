@@ -24,15 +24,15 @@ The data set from the Iyer paper is quite large (available at /home4/VBG_data/Ph
 
 **Software**
 
-Use the alignment software Mafft: type 'mafft filename.fst > filename-mafft-aln'on the command line on the bioinformatics server Alpha2 <alpha2.cvr.gla.ac.uk. The authors used older software, CLUSTALW (commmand ‘clustalw2’ on the command line), have a go using that too.  
+Use the alignment software ***Mafft***: type 'mafft filename.fst > filename-mafft-aln'on the command line on the bioinformatics server Alpha2 <alpha2.cvr.gla.ac.uk. The authors used older software, ***CLUSTALW*** (commmand ‘clustalw2’ on the command line), have a go using that too. Other alignmen software such as ***Muscle*** is popular but slower to run.   
 
-To infer a phylogenetic tree try using the popular software IQ-TREE (command: 'iqtree2 -s filename.ph -m HKY --threads-max 1'). Reflect on the lecture at the beginning of the class to choose appropriate parameters. Note, the 'threads' command is important to prevent the program using multiple threads on the server. What are the different options doing?
+To infer a phylogenetic tree try using the popular software IQ-TREE (command: 'iqtree2 -s filename.ph -m HKY --threads-max 1'). Reflect on the lecture at the beginning of the class to choose appropriate parameters. ***Note***, the 'threads' command is important to prevent the program using multiple threads on the server. What are the different options doing?
 
-Use FigTree (command: ‘figtree’) for visualizing your phylogenetic trees and highlighting specific sequence names. 
+Use ***FigTree*** (command: ‘figtree’) for visualizing your phylogenetic trees and highlighting specific sequence names. 
 
-Now try the software RaXML: type 'raxml-ng-mpi --threads 1 --model HKY --msa filename.fst'. Alternatively to use PhyML for tree inference, type ‘phyml’ on the command line (or available online at http://www.atgc-montpellier.fr/phyml/). See PhyML’s online helpfile for further guidance on options: http://www.atgc-montpellier.fr/phyml/usersguide.php. Note, PhyML takes PHYLIP formatted alignments which can be generated with CLUSTALW (or use the .ph file in the Data folder). 
+Now try the software ***RaXML***: type 'raxml-ng-mpi --threads 1 --model HKY --msa filename.fst'. An another alternative is ***PhyML***, type ‘phyml’ on the command line (or available online at http://www.atgc-montpellier.fr/phyml/). See PhyML’s online helpfile for further guidance on options: http://www.atgc-montpellier.fr/phyml/usersguide.php. Note, PhyML takes PHYLIP formatted alignments which can be generated with CLUSTALW (or use the .ph file in the Data folder). 
 
-Note, alignments, tree methods and visualization can also be carried out with graphical user interface software, for example, SeaView (command: ‘/software/seaview-v5.0.5/seaview’).
+Note, alignments, tree methods and visualization can also be carried out with graphical user interface software, for example, ***SeaView*** (command: ‘/software/seaview-v5.0.5/seaview’).
 
 Once you’ve generated some trees answer the questions below:
 
