@@ -500,6 +500,12 @@ medaka_consensus
 ```
 Which should produce the medaka consensus help info - you can ignore any messages about 'Cannot import pyabpoa, some features may not be available.'
 
+and finally - install Flye:
+
+```
+mamba install -c bioconda flye
+```
+
 We are now ready to start analysing some nanopore data.
 
 # Other useful conda commands
