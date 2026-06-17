@@ -502,7 +502,16 @@ Which should produce the medaka consensus help info - you can ignore any message
 
 We are now ready to start analysing some nanopore data.
 
+# Other useful conda commands
 
+* Show all packages installed in the active env: mamba list
+* Delete an env: mamba env remove -n test-env
+* Save a description of the env to a yml file: mamba env export > my_environment.yml
+
+
+A really nice conda cheatsheet is available here:
+
+[https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf)
 
 
 
