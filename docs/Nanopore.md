@@ -26,6 +26,8 @@ You should see folders for each of the below viruses, each folder contains a FAS
 * Measles
 * SARS2
 
+# EMCV
+
 Lets start with EMCV. EMCV stands for Encephalomyocarditis virus. It is a small, rodent-borne RNA virus that primarily infects animals but has zoonotic potential to infect humans. EMCV has a positive-sense, single-stranded RNA genome, roughly 7.8 kilobases in length. EMCV is a member of the *Cardiovirus rueckerti* species,  *Cardiovirus* genus, *Picornaviridae* family.
 
 ```
@@ -54,7 +56,9 @@ In this EMCV sample we have:
 * N50 = 649, n = 17317 -> 50% of all the bases in the FASTQ file are contained in reads that are 649 bp or longer.
 
 
-
+```
+NanoPlot --fastq barcode10.fastq -o nanoplot_report
+```
 
 
 
