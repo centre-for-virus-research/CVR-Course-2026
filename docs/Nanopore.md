@@ -120,7 +120,9 @@ firefox barcode10_html_results/barcode10.html
 ```
 **NB:** remeber you will need to close firefox down before you get your prompt back
 
-Nanopore sequencing has a different error profile to short-read technologies such as Illumina, with higher rates of insertion/deletion errors and homopolymer-associated mistakes. As a result, specialised variant calling and consensus tools such as Medaka have been developed to model these errors and produce more accurate consensus sequences from Nanopore data. [medaka](https://github.com/nanoporetech/medaka) is designed by Oxford Nanopore Technolgies (ONT) themselves. A key requirement is to tell medaka what model to use, which reflects the version of flowcell and basecaller that was used during sequencing. Medaka takes the fastq reads and reference sequence as input, and uses minimap2 behind the scenes to do the alignement itself.
+Nanopore sequencing has a different error profile to short-read technologies such as Illumina, with higher rates of insertion/deletion errors and homopolymer-associated mistakes. As a result, specialised variant calling and consensus tools such as Medaka have been developed to model these errors and produce more accurate consensus sequences from Nanopore data. [medaka](https://github.com/nanoporetech/medaka) is designed by Oxford Nanopore Technolgies (ONT) themselves. 
+
+A key requirement is to tell medaka what model to use, which reflects the version of flowcell and basecaller that was used during sequencing. Medaka takes the fastq reads and reference sequence as input, and uses minimap2 behind the scenes to do the alignement itself.
 
 ```
 medaka_consensus -i barcode10.fastq -d emcv_ref.fasta -o medaka_consensus -t 4 -m r941_min_hac_g507
@@ -173,6 +175,16 @@ medaka sequence --min_depth 20 --fill_char N emcv_medaka_variant/consensus_probs
 If we check the consensus sequence out now, there should be a depth masked region at the 5' end due to low coverage
 ```
 cat emcv_medaka_variant/emcv_consensus.fasta
+```
+
+## Flye
+
+[Flye](https://github.com/mikolmogorov/Flye) is a de novo assembler designed specifically for long, error-prone sequencing reads produced by platforms such as Oxford Nanopore and PacBio. Traditional assemblers such as SPAdes were originally developed for short, highly accurate Illumina reads and generally perform less well on long-read datasets due to their different error profiles and assembly algorithms.
+
+To run Flye on the EMCV sample:
+
+```
+flye --nano-raw barcode10.fastq --out-dir emcv_flye_assembly --threads 4
 ```
 
 ## Some additional notes
@@ -228,6 +240,10 @@ medaka_variant -i barcode01.fastq -o flu_medaka_variant -m r941_min_hac_variant_
 
 ```
 medaka sequence --min_depth 20 --fill_char N flu_medaka_variant/consensus_probs.hdf flu_ref.fasta flu_medaka_variant/emcv_consensus.fasta
+```
+
+```
+flye --nano-raw barcode01.fastq --out-dir flu_flye_assembly --threads 4
 ```
 
 # HCMV
