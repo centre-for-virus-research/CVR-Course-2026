@@ -199,6 +199,12 @@ flye --nano-raw barcode10.fastq --out-dir emcv_flye_assembly --threads 4
 * --out-dir emcv_flye_assembly -> output directory to create and store results
 * --threads 4 -> use 4 threads
 
+We can view the resultant assembled sequences by:
+
+```
+cat emcv_flye_assembly/assembly.fasta
+```
+
 You could also try running assembly-stats on the flye assembly results - how many seqs are there? what sizes?
 
 ```
