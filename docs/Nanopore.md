@@ -16,6 +16,7 @@ E-mail: Richard.Orton@glasgow.ac.uk
 
 ## Overview
 
+In this practical we will work with a range of viral nanopore datasets, using tools to explore the varying read lengths one can get with Oxford Nanopore Technologies (ONT), minimap2 for read alignment, and medaka for consensus calling. This builds on the previous session focussing on Illumina reference alignment, coverage and consensus calling using bwa, samtools and iVar.
 
 # Setup
 
@@ -98,7 +99,6 @@ minimap2 -t 4 -a -x map-ont emcv_ref.fasta barcode10.fastq > barcode10.sam
 * > redirect the output
 * into an output file called barcode10.sam
 
-
 We now sort/convert the SAM to BAM, index it, and remove the SAM - these are the steps you should be familiar with from the Illumina reference alignment practicals:
 
 ```
@@ -160,7 +160,7 @@ Medaka_consensus is a consensus 'polishing' tool, it can sometimes be a little a
 However, we can use medaka in a different way to address this, first by calling variants with respect to the reference using **medaka variant**, and then by applying the variants along with a minimum depth using **medaka sequence**:
 
 ```
-medaka_variant -i barcode10.fastq -o emcv_medaka-variant -m r941_min_hac_variant_g507 -r emcv_ref.fasta -f -x
+medaka_variant -i barcode10.fastq -o emcv_medaka_variant -m r941_min_hac_variant_g507 -r emcv_ref.fasta -f -x
 ```
 
 * -i barcode10.fastq -> Input Nanopore FASTQ reads
@@ -171,7 +171,7 @@ medaka_variant -i barcode10.fastq -o emcv_medaka-variant -m r941_min_hac_variant
 * -x -> Skip creation of large intermediate files that are not required for the final output (saves disk space)
 
 ```
-medaka sequence --min_depth 20 --fill_char N emcv_medaka-variant/consensus_probs.hdf emcv_ref.fasta emcv_medaka-variant/emcv_consensus.fasta
+medaka sequence --min_depth 20 --fill_char N emcv_medaka_variant/consensus_probs.hdf emcv_ref.fasta emcv_medaka_variant/emcv_consensus.fasta
 ```
 
 * medaka sequence -> Converts Medaka probabilities into a consensus sequence
@@ -182,15 +182,17 @@ medaka sequence --min_depth 20 --fill_char N emcv_medaka-variant/consensus_probs
 * emcv_consensus.fasta -> Output consensus FASTA
 
 
+If we check the consensus sequence out now, there should be a depth masked region at the 5' end due to low coverage
 ```
-sed "s/^>.*/>${sName}_medaka_consensus/g" ${sPath}/medaka-variant/${sName}_fmdv_consensus.fasta > ${sPath}/${sName}_fmdv_consensus.fasta
+cat emcv_medaka_variant/emcv_consensus.fasta
 ```
 
 ## Some additional notes
 
-* Pipelines such as the ARTIC pipelines have their own similar (but different) consensus calling programs.
+* Medaka gives consensus sequences the same name as the reference sequence, this may cause warnings for alignment/tree programs that don't like duplicate names. We can change their names via sed using the -i in place flag
+* Pipelines such as the [ARTIC pipelines](https://github.com/artic-network/fieldbioinformatics) have a slightly modified way of calling the consensus using medaka
 * This sample was not amplicon based and therfore did not require a primer BED file for primer trimming
-* 
+* There is now a newer mode in medaka called **medaka inference** which takes a BAM file and reference sequence to call a consensus
 
 # Influenza
 
@@ -230,6 +232,14 @@ weeSAM --bam barcode01.bam --html barcode01
 
 ```
 medaka_consensus -i barcode01.fastq -d flu_ref.fasta -o flu_medaka_consensus -t 4 -m r941_min_hac_g507
+```
+
+```
+medaka_variant -i barcode01.fastq -o flu_medaka_variant -m r941_min_hac_variant_g507 -r emcv_ref.fasta -f -x
+```
+
+```
+medaka sequence --min_depth 20 --fill_char N flu_medaka_variant/consensus_probs.hdf flu_ref.fasta flu_medaka_variant/emcv_consensus.fasta
 ```
 
 # HCMV
