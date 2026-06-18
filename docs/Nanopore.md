@@ -180,7 +180,50 @@ rm barcode01.sam
 weeSAM --bam barcode01.bam --html barcode01
 ```
 
+```
+medaka_consensus -i barcode01.fastq -d flu_ref.fasta -o flu_medaka_consensus -t 4 -m r941_min_hac_g507
+```
+
 # HCMV
 
+Human cytomegalovirus (HCMV) is a large double-stranded DNA herpesvirus that infects humans. Its genome is approximately 235,000 bp in length and encodes over 150 proteins, making it one of the largest and most genetically complex human viruses.
+
+```
+cd ../HCMV
+```
+
+```
+assembly-stats barcode02.fastq 
+```
+
+```
+NanoPlot --fastq barcode02.fastq -o hcmv-nanoplot
+```
+
+```
+minimap2 -t 4 -a -x map-ont hcmv_ref.fasta barcode02.fastq > barcode02.sam
+```
+
+```
+samtools sort barcode02.sam -o barcode02.bam
+```
+
+```
+samtools index barcode02.bam
+```
+
+```
+rm barcode02.sam
+```
+
+```
+weeSAM --bam barcode02.bam --html barcode02
+```
+
+```
+medaka_consensus -i barcode02.fastq -d hcmv_ref.fasta -o hcmv_medaka_consensus -t 4 -m r941_min_hac_g507
+```
+
+The HCMV is a little different. First HCMV is large DNA virus, 
 
 
