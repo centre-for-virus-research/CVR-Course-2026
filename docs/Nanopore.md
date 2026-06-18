@@ -193,6 +193,8 @@ To run Flye on the EMCV sample:
 ```
 flye --nano-raw barcode10.fastq --out-dir emcv_flye_assembly --threads 4
 ```
+**NB:** flye may take a good 5-10 minutes to finish
+
 * flye -> name of the program
 * --nano-raw -> as out data is quite old, we need to use --nano-raw rather than --nano-hq for modern high-accuracy ONT reads 
 * barcode10.fastq -> input FASTQ file
