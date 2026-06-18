@@ -60,7 +60,7 @@ First we will use a program called [assembly-stats](https://github.com/sanger-pa
 assembly-stats barcode10.fastq 
 ```
 
-The key outputted  are:
+The key outputs are:
 
 * sum = 33349709 -> total number of bases across all reads in the FASTQ
 * n = 55902 -> total number of reads
@@ -122,30 +122,31 @@ firefox barcode10_html_results/barcode10.html
 
 Nanopore sequencing has a different error profile to short-read technologies such as Illumina, with higher rates of insertion/deletion errors and homopolymer-associated mistakes. As a result, specialised variant calling and consensus tools such as Medaka have been developed to model these errors and produce more accurate consensus sequences from Nanopore data. [medaka](https://github.com/nanoporetech/medaka) is designed by Oxford Nanopore Technolgies (ONT) themselves. 
 
-A key requirement is to tell medaka what model to use, which reflects the version of flowcell and basecaller that was used during sequencing. Medaka takes the fastq reads and reference sequence as input, and uses minimap2 behind the scenes to do the alignement itself.
+A key requirement is to tell medaka what model to use, which reflects the version of flowcell and basecaller that was used during sequencing. The medaka_consensus and medaka_variant commands take FASTQ reads and a reference sequence as input and perform the alignment internally using minimap2.
 
 ```
-medaka_consensus -i barcode10.fastq -d emcv_ref.fasta -o medaka_consensus -t 4 -m r941_min_hac_g507
+medaka_consensus -i barcode10.fastq -d emcv_ref.fasta -o emcv_medaka_consensus -t 4 -m r941_min_hac_g507
 ```
+**NB:** medaka will output LOTS of messages to the screen as it progresses
+
 * medaka_consensus -> the name of the program
 * -i barcode10.fastq -> the input fastq file
 * -d emcv_ref.fasta  -> the reference sequence
 * -o emcv_medaka_consensus -> output folder name
 * -t 4 -> number of threads to use (4)
-* -m r941_min_hac_g50 -> the model to use: r941 = R9.4.1 chemistry, min = MinION, hac = high-accuracy basecalling, g507 = guppy basecaller Guppy 5.0.7
-
+* -m r941_min_hac_g507 -> the model to use: r941 = R9.4.1 chemistry, min = MinION, hac = high-accuracy basecalling, g507 = guppy basecaller Guppy 5.0.7
 
 If we list the contents on the new emcv_medaka_consensus folder we should see our consensus sequence:
 
 ```
-ls medaka_consensus
+ls emcv_medaka_consensus
 ```
 
 ```
-cat medaka_consensus/consensus.fasta
+cat emcv_medaka_consensus/consensus.fasta
 ```
 
-Medaka_consensus is a consensus 'polishing' tool, it can sometimes be a little agressive at calling bases at low coverage regions and there is now way to control this directly i.e. there is no minimum depth function in medaka_consensus and now way to mask sites with Ns at low coverage regions.
+Medaka_consensus is a consensus 'polishing' tool, it can sometimes be a little agressive at calling bases at low coverage regions and there is no way to control this directly i.e. there is no minimum depth function in medaka_consensus and no way to mask sites with Ns at low coverage regions.
 
 However, we can use medaka in a different way to address this, first by calling variants with respect to the reference using **medaka variant**, and then by applying the variants along with a minimum depth using **medaka sequence**:
 
@@ -177,6 +178,12 @@ If we check the consensus sequence out now, there should be a depth masked regio
 cat emcv_medaka_variant/emcv_consensus.fasta
 ```
 
+We can count the number of masked positions (Ns) using grep:
+
+```
+grep -v "^>" emcv_medaka_variant/emcv_consensus.fasta | grep -o "N" | wc -l
+```
+
 ## Flye
 
 [Flye](https://github.com/mikolmogorov/Flye) is a de novo assembler designed specifically for long, error-prone sequencing reads produced by platforms such as Oxford Nanopore and PacBio. Traditional assemblers such as SPAdes were originally developed for short, highly accurate Illumina reads and generally perform less well on long-read datasets due to their different error profiles and assembly algorithms.
@@ -185,6 +192,17 @@ To run Flye on the EMCV sample:
 
 ```
 flye --nano-raw barcode10.fastq --out-dir emcv_flye_assembly --threads 4
+```
+* flye -> name of the program
+* --nano-raw -> as out data is quite old, we need to use --nano-raw rather than --nano-hq for modern high-accuracy ONT reads 
+* barcode10.fastq -> input FASTQ file
+* --out-dir emcv_flye_assembly -> output directory to create and store results
+* --threads 4 -> use 4 threads
+
+You could also try running assembly-stats on the flye assembly results - how many seqs are there? what sizes?
+
+```
+assembly-stats emcv_flye_assembly/assembly.fasta
 ```
 
 ## Some additional notes
@@ -235,11 +253,11 @@ medaka_consensus -i barcode01.fastq -d flu_ref.fasta -o flu_medaka_consensus -t 
 ```
 
 ```
-medaka_variant -i barcode01.fastq -o flu_medaka_variant -m r941_min_hac_variant_g507 -r emcv_ref.fasta -f -x
+medaka_variant -i barcode01.fastq -o flu_medaka_variant -m r941_min_hac_variant_g507 -r flu_ref.fasta -f -x
 ```
 
 ```
-medaka sequence --min_depth 20 --fill_char N flu_medaka_variant/consensus_probs.hdf flu_ref.fasta flu_medaka_variant/emcv_consensus.fasta
+medaka sequence --min_depth 20 --fill_char N flu_medaka_variant/consensus_probs.hdf flu_ref.fasta flu_medaka_variant/flu_consensus.fasta
 ```
 
 ```
@@ -250,9 +268,9 @@ flye --nano-raw barcode01.fastq --out-dir flu_flye_assembly --threads 4
 
 Human cytomegalovirus (HCMV), family *Herpesviridae*, is a large double-stranded DNA herpesvirus that infects humans. Its genome is approximately 235,000 bp in length and encodes over 150 proteins, making it one of the largest and most genetically complex human viruses.
 
-Try and adapt the previous commands to the HCMV sample - you should see a very different read length profile.
+Try and adapt the previous commands to the HCMV sample - you should see a very different read length profile. Medaka and Flye may take a while to run on this sample given the size of the genome. Furthermore, herpesviruses are notoriously difficult to assemble automatically due to the complexity and repeat regions. 
 
 # Extra data
 
-If you have time - and there is no expectation to do this - there is also a FMDV, SARS2 and Measles data set - for both use the "r941_min_hac_g507" in medaka
+If you have time - and there is no expectation to do this - there is also a FMDV, SARS2 and Measles data set - for all three datasets, use the "r941_min_hac_g507" Medaka model.
 
