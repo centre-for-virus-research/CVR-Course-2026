@@ -131,9 +131,56 @@ medaka_consensus -i barcode10.fastq -d emcv_ref.fasta -o medaka_consensus -t 4 -
 If we list the contents on the new emcv_medaka_consensus folder we should see our consensus sequence:
 
 ```
-
+ls medaka_consensus
 ```
 
+```
+cat medaka_consensus/consensus.fasta
+```
+
+By default the 
+
+```
+sed -i 's/>/>Medaka|/g' medaka_consensus/consensus.fasta
+```
+
+# Influenza
+
+Now lets try with the Influenza (FLU) sample (barcode01.fastq & flu_ref.fasta), which is a segmented virus. I'll just recap the commands to enter as the explanations of each step are already above:
+
+```
+cd ../FLU
+```
+
+```
+assembly-stats barcode01.fastq 
+```
+
+```
+NanoPlot --fastq barcode01.fastq -o flu-nanoplot
+```
+
+```
+minimap2 -t 4 -a -x map-ont flu_ref.fasta barcode01.fastq > barcode01.sam
+```
+
+```
+samtools sort barcode01.sam -o barcode01.bam
+```
+
+```
+samtools index barcode01.bam
+```
+
+```
+rm barcode01.sam
+```
+
+```
+weeSAM --bam barcode01.bam --html barcode01
+```
+
+# HCMV
 
 
 
