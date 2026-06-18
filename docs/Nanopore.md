@@ -109,18 +109,6 @@ samtools index barcode10.bam
 rm barcode10.sam
 ```
 
-Nanopore sequencing has a different error profile to short-read technologies such as Illumina, with higher rates of insertion/deletion errors and homopolymer-associated mistakes. As a result, specialised variant calling and consensus tools such as Medaka have been developed to model these errors and produce more accurate consensus sequences from Nanopore data.
-
-However, tools such as iVar can still be run on the BAM file to create a consensus sequence, but the sequence will likely contain a number of errors, such as incorrect indels.
-
-```
-samtools mpileup -aa -A -d 0 -Q 0 barcode10.bam | ivar consensus -p barcode10 -t 0.4
-```
-
-```
-cat barcode10.fa
-```
-
 As we are in a standard BAM format, we can also readily create a standard coverage plot is we did in the Illumina session:
 
 ```
@@ -132,7 +120,7 @@ firefox barcode10_html_results/barcode10.html
 ```
 **NB:** remeber you will need to close firefox down before you get your prompt back
 
-OK, so what tool should we use for creating a consensus sequence? [medaka](https://github.com/nanoporetech/medaka) is probably the top choice for this, and is designed by Oxford Nanopore Technolgies (ONT) themselves. A key requirement is to tell medaka what model to use, which reflects the version of flowcell and basecaller that was used during sequencing. Medaka takes the fastq reads and reference sequence as input, and uses minimap2 behind the scenes to do the alignement itself.
+Nanopore sequencing has a different error profile to short-read technologies such as Illumina, with higher rates of insertion/deletion errors and homopolymer-associated mistakes. As a result, specialised variant calling and consensus tools such as Medaka have been developed to model these errors and produce more accurate consensus sequences from Nanopore data. [medaka](https://github.com/nanoporetech/medaka) is designed by Oxford Nanopore Technolgies (ONT) themselves. A key requirement is to tell medaka what model to use, which reflects the version of flowcell and basecaller that was used during sequencing. Medaka takes the fastq reads and reference sequence as input, and uses minimap2 behind the scenes to do the alignement itself.
 
 ```
 medaka_consensus -i barcode10.fastq -d emcv_ref.fasta -o medaka_consensus -t 4 -m r941_min_hac_g507
