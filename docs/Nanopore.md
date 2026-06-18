@@ -44,6 +44,12 @@ You should see folders for each of the below viruses, each folder contains a FAS
 * Measles
 * SARS2
 
+Now lets activate our newly created conda environment
+
+```
+conda activate nanopore-env
+```
+
 # EMCV
 
 Lets start with EMCV. EMCV stands for Encephalomyocarditis virus. It is a small, rodent-borne RNA virus that primarily infects animals but has zoonotic potential to infect humans. EMCV has a positive-sense, single-stranded RNA genome, roughly 7.8 kilobases in length. EMCV is a member of the *Cardiovirus rueckerti* species,  *Cardiovirus* genus, *Picornaviridae* family.
