@@ -84,7 +84,7 @@ This will create a HTML report file which we can open with firefox:
 ```
 firefox emcv-nanoplot/NanoPlot-report.html
 ```
-**NB:** remeber you will need to close firefox down before you get your prompt back
+**NB:** remember you will need to close firefox down before you get your prompt back
 
 Now we will try aligning the reads to the reference sequences using [minimap2](https://github.com/lh3/minimap2). Minimap2 is a fast sequence aligner that maps sequencing reads to a reference genome and is the standard aligner for Oxford Nanopore data. It is widely used for viral, bacterial, and eukaryotic genome analysis due to its speed, accuracy, and ability to handle long reads efficiently.
 
@@ -118,9 +118,9 @@ weeSAM --bam barcode10.bam --html barcode10
 ```
 firefox barcode10_html_results/barcode10.html
 ```
-**NB:** remeber you will need to close firefox down before you get your prompt back
+**NB:** remember you will need to close firefox down before you get your prompt back
 
-Nanopore sequencing has a different error profile to short-read technologies such as Illumina, with higher rates of insertion/deletion errors and homopolymer-associated mistakes. As a result, specialised variant calling and consensus tools such as Medaka have been developed to model these errors and produce more accurate consensus sequences from Nanopore data. [medaka](https://github.com/nanoporetech/medaka) is designed by Oxford Nanopore Technolgies (ONT) themselves. 
+Nanopore sequencing has a different error profile to short-read technologies such as Illumina, with higher rates of insertion/deletion errors and homopolymer-associated mistakes. As a result, specialised variant calling and consensus tools such as Medaka have been developed to model these errors and produce more accurate consensus sequences from Nanopore data. [medaka](https://github.com/nanoporetech/medaka) is designed by Oxford Nanopore Technologies (ONT) themselves. 
 
 A key requirement is to tell medaka what model to use, which reflects the version of flowcell and basecaller that was used during sequencing. The medaka_consensus and medaka_variant commands take FASTQ reads and a reference sequence as input and perform the alignment internally using minimap2.
 
@@ -155,7 +155,7 @@ medaka_variant -i barcode10.fastq -o emcv_medaka_variant -m r941_min_hac_variant
 ```
 
 * -i barcode10.fastq -> Input Nanopore FASTQ reads
-* -o emcv_medaka-variant -> Output directory where Medaka will write VCFs, HDF files, logs, etc.
+* -o emcv_medaka_variant -> Output directory where Medaka will write VCFs, HDF files, logs, etc.
 * -m r941_min_hac_variant_g507 -> Medaka variant model to use (R9.4.1 MinION HAC reads, Guppy 5.0.7-era model)
 * -r emcv_ref.fasta -> Reference FASTA to align against and call variants relative to
 * -f -> Force overwrite of an existing output directory
@@ -193,7 +193,7 @@ To run Flye on the EMCV sample:
 ```
 flye --nano-raw barcode10.fastq --out-dir emcv_flye_assembly --threads 4
 ```
-**NB:** flye may take a good 5-10 minutes to finish
+**NB:** Flye may take several minutes to finish depending on the size of the dataset and genome.
 
 * flye -> name of the program
 * --nano-raw -> as out data is quite old, we need to use --nano-raw rather than --nano-hq for modern high-accuracy ONT reads 
@@ -201,13 +201,19 @@ flye --nano-raw barcode10.fastq --out-dir emcv_flye_assembly --threads 4
 * --out-dir emcv_flye_assembly -> output directory to create and store results
 * --threads 4 -> use 4 threads
 
-We can view the resultant assembled sequences by:
+We can view the resultant assembled sequences by counting the number of seqs in the assembly with grep, and viewing the whole file:
+
+```
+grep -c ">" emcv_flye_assembly/assembly.fasta
+```
 
 ```
 cat emcv_flye_assembly/assembly.fasta
 ```
 
-You could also try running assembly-stats on the flye assembly results - how many seqs are there? what sizes?
+
+
+You could also try running assembly-stats on the Flye assembly results. How many sequences are there, and what sizes are they?
 
 ```
 assembly-stats emcv_flye_assembly/assembly.fasta
