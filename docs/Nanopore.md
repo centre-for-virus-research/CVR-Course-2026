@@ -132,7 +132,7 @@ firefox barcode10_html_results/barcode10.html
 ```
 **NB:** remeber you will need to close firefox down before you get your prompt back
 
-OK, so what tool should we use for creating a consensus sequence? [medaka](https://github.com/nanoporetech/medaka) is probably the top choice for this, and is designed by Oxford Nanopore Technolgies (ONT) themselves. A key requirement is to tell medaka what model to use, which reflects the version of flowcell and basecaller that was used during sequencing.
+OK, so what tool should we use for creating a consensus sequence? [medaka](https://github.com/nanoporetech/medaka) is probably the top choice for this, and is designed by Oxford Nanopore Technolgies (ONT) themselves. A key requirement is to tell medaka what model to use, which reflects the version of flowcell and basecaller that was used during sequencing. Medaka takes the fastq reads and reference sequence as input, and uses minimap2 behind the scenes to do the alignement itself.
 
 ```
 medaka_consensus -i barcode10.fastq -d emcv_ref.fasta -o medaka_consensus -t 4 -m r941_min_hac_g507
@@ -155,16 +155,42 @@ ls medaka_consensus
 cat medaka_consensus/consensus.fasta
 ```
 
-Medaka_consensus is a consensus 'polishing' tool, it can sometimes be a little agressive at calling bases at low coverage regions and there is now wat to control this directly i.e. there is no minimum depth function in medaka_consensus
+Medaka_consensus is a consensus 'polishing' tool, it can sometimes be a little agressive at calling bases at low coverage regions and there is now way to control this directly i.e. there is no minimum depth function in medaka_consensus and now way to mask sites with Ns at low coverage regions.
+
+However, we can use medaka in a different way to address this, first by calling variants with respect to the reference using **medaka variant**, and then by applying the variants along with a minimum depth using **medaka sequence**:
 
 ```
-medaka_variant -i barcode10.fastq -o emcv_medaka-variant -m r941_min_hac_g507 -r emcv_ref.fasta -f -x
+medaka_variant -i barcode10.fastq -o emcv_medaka-variant -m r941_min_hac_variant_g507 -r emcv_ref.fasta -f -x
+```
 
+* -i barcode10.fastq -> Input Nanopore FASTQ reads
+* -o emcv_medaka-variant -> Output directory where Medaka will write VCFs, HDF files, logs, etc.
+* -m r941_min_hac_variant_g507 -> Medaka variant model to use (R9.4.1 MinION HAC reads, Guppy 5.0.7-era model)
+* -r emcv_ref.fasta -> Reference FASTA to align against and call variants relative to
+* -f -> Force overwrite of an existing output directory
+* -x -> Skip creation of large intermediate files that are not required for the final output (saves disk space)
+
+```
 medaka sequence --min_depth 20 --fill_char N emcv_medaka-variant/consensus_probs.hdf emcv_ref.fasta emcv_medaka-variant/emcv_consensus.fasta
+```
 
-	sed "s/^>.*/>${sName}_medaka_consensus/g" ${sPath}/medaka-variant/${sName}_fmdv_consensus.fasta > ${sPath}/${sName}_fmdv_consensus.fasta
+* medaka sequence -> Converts Medaka probabilities into a consensus sequence
+* --min_depth 20 -> Require at least 20 reads covering a position before calling a base
+* --fill_char N -> Positions below the depth threshold become N
+* consensus_probs.hdf -> Medaka’s internal file containing consensus probabilities
+* emcv_ref.fasta -> Reference sequence used as the coordinate framework
+* emcv_consensus.fasta -> Output consensus FASTA
+
 
 ```
+sed "s/^>.*/>${sName}_medaka_consensus/g" ${sPath}/medaka-variant/${sName}_fmdv_consensus.fasta > ${sPath}/${sName}_fmdv_consensus.fasta
+```
+
+## Some additional notes
+
+* Pipelines such as the ARTIC pipelines have their own similar (but different) consensus calling programs.
+* This sample was not amplicon based and therfore did not require a primer BED file for primer trimming
+* 
 
 # Influenza
 
