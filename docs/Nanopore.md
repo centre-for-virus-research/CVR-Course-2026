@@ -1,3 +1,20 @@
+# Nanopore Analysis Practical
+## [Introduction to Viral Bioinformatics Training Course](https://github.com/centre-for-virus-research/CVR-Course-2026)
+* Monday 15th - Friday 19th June 2026
+* Glasgow, UK
+* [MRC-University of Glasgow Centre for Virus Research](https://www.gla.ac.uk/research/az/cvr/)
+
+## Contact
+
+[Richard Orton](https://www.gla.ac.uk/schools/infectionimmunity/staff/richardorton/)   
+[MRC-University of Glasgow Centre for Virus Research](https://www.gla.ac.uk/research/az/cvr/)  
+464 Bearsden Road  
+Glasgow  
+G61 1QH  
+UK  
+E-mail: Richard.Orton@glasgow.ac.uk  
+
+## Overview
 
 
 # Setup
@@ -138,10 +155,15 @@ ls medaka_consensus
 cat medaka_consensus/consensus.fasta
 ```
 
-By default the 
+Medaka_consensus is a consensus 'polishing' tool, it can sometimes be a little agressive at calling bases at low coverage regions and there is now wat to control this directly i.e. there is no minimum depth function in medaka_consensus
 
 ```
-sed -i 's/>/>Medaka|/g' medaka_consensus/consensus.fasta
+medaka_variant -i barcode10.fastq -o emcv_medaka-variant -m r941_min_hac_g507 -r emcv_ref.fasta -f -x
+
+medaka sequence --min_depth 20 --fill_char N emcv_medaka-variant/consensus_probs.hdf emcv_ref.fasta emcv_medaka-variant/emcv_consensus.fasta
+
+	sed "s/^>.*/>${sName}_medaka_consensus/g" ${sPath}/medaka-variant/${sName}_fmdv_consensus.fasta > ${sPath}/${sName}_fmdv_consensus.fasta
+
 ```
 
 # Influenza
@@ -186,44 +208,11 @@ medaka_consensus -i barcode01.fastq -d flu_ref.fasta -o flu_medaka_consensus -t 
 
 # HCMV
 
-Human cytomegalovirus (HCMV) is a large double-stranded DNA herpesvirus that infects humans. Its genome is approximately 235,000 bp in length and encodes over 150 proteins, making it one of the largest and most genetically complex human viruses.
+Human cytomegalovirus (HCMV), family *Herpesviridae*, is a large double-stranded DNA herpesvirus that infects humans. Its genome is approximately 235,000 bp in length and encodes over 150 proteins, making it one of the largest and most genetically complex human viruses.
 
-```
-cd ../HCMV
-```
+Try and adapt the previous commands to the HCMV sample - you should see a very different read length profile.
 
-```
-assembly-stats barcode02.fastq 
-```
+# Extra data
 
-```
-NanoPlot --fastq barcode02.fastq -o hcmv-nanoplot
-```
-
-```
-minimap2 -t 4 -a -x map-ont hcmv_ref.fasta barcode02.fastq > barcode02.sam
-```
-
-```
-samtools sort barcode02.sam -o barcode02.bam
-```
-
-```
-samtools index barcode02.bam
-```
-
-```
-rm barcode02.sam
-```
-
-```
-weeSAM --bam barcode02.bam --html barcode02
-```
-
-```
-medaka_consensus -i barcode02.fastq -d hcmv_ref.fasta -o hcmv_medaka_consensus -t 4 -m r941_min_hac_g507
-```
-
-The HCMV is a little different. First HCMV is large DNA virus, 
-
+If you have time - and there is no expectation to do this - there is also a FMDV, SARS2 and Measles data set - for both use the "r941_min_hac_g507" in medaka
 
