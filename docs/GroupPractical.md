@@ -43,11 +43,9 @@ New script that:
 
 Expand your alignment script too call the SAM script.
 
-The alignment script creates a SAM
-
-Call the SAM script to convert it into a BAM
-
-Call the script - dont copy the code in
+* The alignment script creates a SAM
+* Call the SAM script to convert it into a BAM
+* Call the script - dont copy the code in
 
 # Fourth task
 
@@ -56,10 +54,14 @@ Write a loop script to loop over all the FASTQ pairs in a folder and run the ali
 
 # Fifth task
 
-expand the alignment script to trim the reads with trim_galore first and use the trimmed reads for the alignment
+Expand the alignment script to trim the reads with trim_galore first and use the trimmed reads for the alignment
 
-# Fifth task
+# Sixth task
 
 Loop over the paired FQ and run spades to do de novo aseembly on each
 
 New script - run spades (4 threads) on 
+
+# Extra
+
+populate the log file with as much info as you think is needed - number of raw reads, number of trimmed reads, number of unmapped reads, name of the reference seq (seq name not file name), average coverage, etc
