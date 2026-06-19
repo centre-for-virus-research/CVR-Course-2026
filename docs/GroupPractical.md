@@ -26,9 +26,18 @@ Wite a bash script that:
 
 # Second Task
 
-New script that
+Data is in:
+
+```
+/home4/VBG_data/ScriptData2
+```
+
+New script that:
+
 1. Takes a pair of FASTQ files
 2. Takes a reference FASTA file
 3. Aligns the FASTQs to the REF to create a SAM file
 4. Create a log file that reprots the names of the FASTQS, REFs and SAM file for record keeping
+
+
 
