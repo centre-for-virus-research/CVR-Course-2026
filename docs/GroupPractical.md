@@ -39,5 +39,19 @@ New script that:
 3. Aligns the FASTQs to the REF to create a SAM file
 4. Create a log file that reprots the names of the FASTQS, REFs and SAM file for record keeping
 
+# Third task
+
+Expand your alignment script too call the SAM script.
+
+The alignment script creates a SAM
+
+Call the SAM script to convert it into a BAM
+
+Call the script - dont copy the code in
+
+# Fourth task
+
+Write a loop script to loop over all the FASTQ pairs in a folder and run the alignment script on each one (the alignment script calls the SAM script)
+
 
 
