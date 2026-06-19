@@ -54,4 +54,12 @@ Call the script - dont copy the code in
 Write a loop script to loop over all the FASTQ pairs in a folder and run the alignment script on each one (the alignment script calls the SAM script)
 
 
+# Fifth task
 
+expand the alignment script to trim the reads with trim_galore first and use the trimmed reads for the alignment
+
+# Fifth task
+
+Loop over the paired FQ and run spades to do de novo aseembly on each
+
+New script - run spades (4 threads) on 
